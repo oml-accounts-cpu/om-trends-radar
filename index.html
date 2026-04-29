@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Owned Media Trends Radar",
+  "schemaVersion": 1,
+  "description": "Archivo histórico de tendencias culturales semanales por país para el equipo de Owned Media de Winclap. Se acumula semana a semana — la más reciente aparece expandida, las anteriores colapsadas."
+}
+</script>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Owned Media Trends Radar</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8f7f5; color: #1a1a1a; font-size: 14px; line-height: 1.6; }
+.header { background: #1a1a1a; color: #fff; padding: 20px 24px 18px; }
+.brand { font-size: 11px; color: #E8392A; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 4px; }
+.header h1 { font-size: 16px; font-weight: 600; }
+.header-sub { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 3px; }
+.container { padding: 16px; max-width: 720px; margin: 0 auto; }
+.week-block { margin-bottom: 12px; border-radius: 10px; overflow: hidden; border: 1px solid #e8e6e0; background: #fff; }
+.week-header { display: flex; align-items: center; justify-content: space-between; padding: 13px 16px; cursor: pointer; user-select: none; gap: 10px; }
+.week-header:hover { background: #fafaf8; }
+.week-header.latest { background: #1a1a1a; color: #fff; }
+.week-header.latest:hover { background: #222; }
+.week-left { display: flex; align-items: center; gap: 10px; }
+.week-dot { width: 8px; height: 8px; border-radius: 50%; background: #E8392A; flex-shrink: 0; }
+.week-dot.old { background: #ccc; }
+.week-label { font-size: 13px; font-weight: 600; }
+.week-label.old { color: #888; font-weight: 500; }
+.week-meta { display: flex; align-items: center; gap: 8px; }
+.pill { font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 20px; background: #f0efeb; color: #666; white-space: nowrap; }
+.pill.red { background: #E8392A; color: #fff; }
+.chevron { width: 15px; height: 15px; transition: transform 0.2s ease; flex-shrink: 0; }
+.chevron.open { transform: rotate(180deg); }
+.week-body { display: none; border-top: 1px solid #f0efeb; }
+.week-body.open { display: block; }
+.section { border-bottom: 1px solid #f0efeb; }
+.section:last-child { border-bottom: none; }
+.section-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 10px 20px; cursor: pointer; user-select: none; gap: 10px; }
+.section-header:hover { background: #fafaf8; }
+.section-left { display: flex; align-items: center; gap: 8px; }
+.section-icon { font-size: 16px; line-height: 1; }
+.section-title { font-size: 12px; font-weight: 600; color: #444; }
+.section-pill { font-size: 10px; font-weight: 500; padding: 1px 6px; border-radius: 20px; background: #f0efeb; color: #888; }
+.section-chev { width: 14px; height: 14px; color: #bbb; transition: transform 0.2s ease; }
+.section-chev.open { transform: rotate(180deg); }
+.section-body { display: none; padding: 0 16px 4px 20px; }
+.section-body.open { display: block; }
+.trend { padding: 10px 0; border-bottom: 1px solid #f5f4f0; }
+.trend:last-child { border-bottom: none; }
+.trend-name { font-size: 12px; font-weight: 600; color: #1a1a1a; margin-bottom: 6px; display: flex; align-items: flex-start; gap: 6px; }
+.trend-name::before { content: "▸"; color: #E8392A; font-size: 10px; margin-top: 2px; flex-shrink: 0; }
+.trend-fields { display: flex; flex-direction: column; gap: 3px; padding-left: 16px; }
+.trend-field { font-size: 11px; color: #444; line-height: 1.5; display: flex; gap: 6px; }
+.trend-field .lbl { font-weight: 600; color: #aaa; white-space: nowrap; min-width: 65px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.3px; padding-top: 1px; flex-shrink: 0; }
+.trend-field .val { color: #333; }
+.footer { text-align: center; padding: 12px 16px 20px; color: #bbb; font-size: 11px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="brand">Winclap · Owned Media</div>
+  <h1>Trends Radar</h1>
+  <div class="header-sub">Archivo histórico de tendencias · BR · CO · AR · MX · CL</div>
+</div>
+<div class="container" id="root"></div>
+<div class="footer">Winclap · Owned Media Lab</div>
+<script>
+const WEEKS = [
+  {
+    id: "2026-04-28",
+    label: "Semana del 28 de abril 2026",
+    sections: [
+      {
+        id: "transversal", icon: "✨", title: "Transversales", subtitle: "Todos los países",
+        trends: [
+          { name: "El Diablo Viste de Prada 2 — estreno 1 mayo, Disney+", que_es: "La secuela con Meryl Streep, Anne Hathaway y Emily Blunt estrena mañana; el tráiler tuvo 222M de views en 24hs, el más visto en la historia del estudio.", publico: "25–45, moda, nostalgia y cultura pop.", para_marca: "Moda, estética y poder femenino dominan esta semana — referencias al universo de la película tienen tracción altísima." },
+          { name: "Michael — biopic de Michael Jackson (estreno 24 abril)", que_es: "Debutó con $217M en su primer fin de semana, el mayor debut de un biopic musical de la historia.", publico: "18–55, transversal.", para_marca: "Iconografía y música de MJ tienen tracción total — funciona en cualquier categoría." },
+          { name: "PSG 5-4 Bayern Munich — Champions League", que_es: "Semifinal del 28/04 con 9 goles, una de las mejores de la historia; segundo leg este miércoles en Munich.", publico: "18–45, fanáticos del fútbol.", para_marca: "Anticipación al segundo leg — formatos de reacción y '¿remonta Bayern?'." },
+          { name: "Euphoria T3 — en emisión, HBO Max", que_es: "Tercera temporada activa desde el 12/04; capítulo 4 sale este domingo. Rosalía en el cast. Serie #1 en streaming global.", publico: "18–30, cultura pop y series.", para_marca: "Anticipación al episodio del domingo; referencias de estética y personajes." },
+          { name: "Él y ella — Netflix", que_es: "Primera serie en convertirse en fenómeno global de Netflix 2026 con 65M de visualizaciones.", publico: "25–45, romance y drama.", para_marca: "Tono emocional y de relaciones; fuerte para marcas lifestyle." },
+          { name: "Coachella 2026 — afterglow", que_es: "Karol G headlineó como primera latina, junto a Justin Bieber y Sabrina Carpenter; conversación post-festival aún activa.", publico: "18–35, música y cultura digital.", para_marca: "Looks y momentos icónicos del festival; contenido de 'mis favoritos'." },
+          { name: "TikTok Bounce Challenge", que_es: "Mini coreografía con pasos cortos y rebote dominando Reels y TikTok en toda LATAM esta semana.", publico: "15–30, creadores de contenido.", para_marca: "Hacer la versión del challenge con producto o equipo; muy bajo costo de producción." },
+          { name: "Mundial 2026 — cuenta regresiva activa", que_es: "Arranca el 11 de junio en México, EE.UU. y Canadá; grupos ya confirmados para todos los países.", publico: "18–55, fanáticos del fútbol.", para_marca: "Ventana de anticipación más grande del semestre — grupos, predicciones, '¿cómo te preparás?'." }
+        ]
+      },
+      {
+        id: "br", icon: "🇧🇷", title: "Brasil",
+        trends: [
+          { name: "Funk Brasileiro viral", que_es: "El funk carioca domina TikTok BR esta semana con baile do baile y beats locales.", publico: "16–35.", para_marca: "Usar audios de funk como fondo; challenges de baile de fácil replicación." },
+          { name: "Ronaldinho: Miniserie — Netflix", que_es: "Miniserie que lideró el ranking de Netflix en Brasil esta semana.", publico: "18–50, fútbol y cultura pop brasileña.", para_marca: "Nostalgia futbolera y orgullo nacional — fuerte para marcas con audiencia deportiva." }
+        ]
+      },
+      {
+        id: "co", icon: "🇨🇴", title: "Colombia",
+        trends: [
+          { name: "Orgullo colombiano por Karol G en Coachella", que_es: "Su histórico headlining genera conversación de orgullo nacional específicamente en redes CO.", publico: "18–35.", para_marca: "Tono de identidad colombiana; 'lo que Colombia le da al mundo'." },
+          { name: "Perfil Falso T3 — Netflix", que_es: "Telenovela colombiana que llegó al top 3 global de Netflix la semana del 20–26 de abril con 3M de views.", publico: "25–50, drama.", para_marca: "Muy fuerte en CO — formatos de '¿en qué capítulo estás?' o referencias al suspenso." }
+        ]
+      },
+      {
+        id: "ar", icon: "🇦🇷", title: "Argentina",
+        trends: [
+          { name: "Argentina en el Mundial — Grupo J", que_es: "Argentina vs Argelia, Jordania y Austria; conversación muy activa sobre el camino al título.", publico: "18–55.", para_marca: "Anticipación del torneo; apoyo a la selección y predicciones del grupo." },
+          { name: "Harry Styles 'Kiss All the Time'", que_es: "Single con fuerte presencia en Reels AR esta semana, millones de likes en contenido de la región.", publico: "18–35, mayormente femenino.", para_marca: "Audio para transiciones de producto, lifestyle o 'antes/después'." }
+        ]
+      },
+      {
+        id: "mx", icon: "🇲🇽", title: "México",
+        trends: [
+          { name: "México sede del Mundial — máxima conversación", que_es: "Partido inaugural México vs Sudáfrica en el Azteca el 11/06; el país entero en modo Mundial.", publico: "18–55.", para_marca: "Oportunidad más grande del semestre — countdown, orgullo local, activaciones pre-torneo." },
+          { name: "'Balenciaga' — El Malilla & Luis R Conriquez", que_es: "Regional mexicano viral en TikTok MX con millones de interacciones en challenges locales.", publico: "16–35.", para_marca: "Audio natural para cualquier Reel; muy familiar para la audiencia local." },
+          { name: "J Balvin en gira — mayo en MX", que_es: "Conciertos el 14, 17 y 20 de mayo en CDMX, Guadalajara y Monterrey.", publico: "18–35.", para_marca: "Contenido de anticipación para fans; hook con su repertorio actual." }
+        ]
+      },
+      {
+        id: "cl", icon: "🇨🇱", title: "Chile",
+        trends: [
+          { name: "Alto consumo de Champions League", que_es: "Chile tiene uno de los seguimientos más altos de fútbol europeo en LATAM; PSG-Bayern fue trending ayer.", publico: "20–45.", para_marca: "Segundo leg el miércoles — anticipación al partido de vuelta en Munich." },
+          { name: "Ed Sheeran LOOP Tour — Lima, 20 mayo", que_es: "Concierto en Lima con alta conversación en redes chilenas pre-fecha regional.", publico: "18–40.", para_marca: "Música de Ed Sheeran como audio de Reels; 'próximamente en nuestra región'." }
+        ]
+      }
+    ]
+  }
+];
+
+function countTrends(week) {
+  return week.sections.reduce((sum, s) => sum + s.trends.length, 0);
+}
+
+function renderTrend(t) {
+  return `<div class="trend">
+    <div class="trend-name">${t.name}</div>
+    <div class="trend-fields">
+      <div class="trend-field"><span class="lbl">Qué es</span><span class="val">${t.que_es}</span></div>
+      <div class="trend-field"><span class="lbl">Público</span><span class="val">${t.publico}</span></div>
+      <div class="trend-field"><span class="lbl">Para marca</span><span class="val">${t.para_marca}</span></div>
+    </div>
+  </div>`;
+}
+
+function renderSection(s, wid, isLatest) {
+  const sid = `s-${wid}-${s.id}`;
+  const openByDefault = isLatest;
+  return `<div class="section">
+    <div class="section-header" onclick="toggleSec('${sid}')">
+      <div class="section-left">
+        <span class="section-icon">${s.icon}</span>
+        <span class="section-title">${s.title}${s.subtitle ? ' <span style="color:#bbb;font-weight:400;font-size:11px">· ' + s.subtitle + '</span>' : ''}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px">
+        <span class="section-pill">${s.trends.length}</span>
+        <svg class="section-chev${openByDefault ? ' open' : ''}" id="sc-${sid}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+    <div class="section-body${openByDefault ? ' open' : ''}" id="sb-${sid}">${s.trends.map(renderTrend).join('')}</div>
+  </div>`;
+}
+
+function renderWeek(week, isLatest) {
+  const total = countTrends(week);
+  const wid = week.id;
+  return `<div class="week-block">
+    <div class="week-header${isLatest ? ' latest' : ''}" onclick="toggleWeek('${wid}')">
+      <div class="week-left">
+        <div class="week-dot${isLatest ? '' : ' old'}"></div>
+        <span class="week-label${isLatest ? '' : ' old'}">${week.label}</span>
+      </div>
+      <div class="week-meta">
+        <span class="pill${isLatest ? ' red' : ''}">${total} tendencias</span>
+        <svg class="chevron${isLatest ? ' open' : ''}" id="wc-${wid}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:${isLatest ? 'rgba(255,255,255,0.6)' : '#aaa'}"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+    <div class="week-body${isLatest ? ' open' : ''}" id="wb-${wid}">
+      ${week.sections.map(s => renderSection(s, wid, isLatest)).join('')}
+    </div>
+  </div>`;
+}
+
+document.getElementById('root').innerHTML = WEEKS.map((w, i) => renderWeek(w, i === 0)).join('');
+
+function toggleWeek(wid) {
+  const body = document.getElementById('wb-' + wid);
+  const chev = document.getElementById('wc-' + wid);
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  chev.classList.toggle('open', !isOpen);
+}
+
+function toggleSec(sid) {
+  const body = document.getElementById('sb-' + sid);
+  const chev = document.getElementById('sc-' + sid);
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  chev.classList.toggle('open', !isOpen);
+}
+</script>
+</body>
+</html>
