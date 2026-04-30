@@ -1,18 +1,10 @@
 <!DOCTYPE html>
-<script type="application/json" id="cowork-artifact-meta">
-{
-  "name": "Owned Media Trends Radar",
-  "schemaVersion": 1,
-  "description": "Archivo histórico de tendencias culturales semanales por país para el equipo de Owned Media de Winclap. Se acumula semana a semana — la más reciente aparece expandida, las anteriores colapsadas."
-}
-</script>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Owned Media Trends Radar</title>
+<title>Owned Media Trends Radar — Winclap</title>
 <style>
-:root { color-scheme: light; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8f7f5; color: #1a1a1a; font-size: 14px; line-height: 1.6; }
 .header { background: #1a1a1a; color: #fff; padding: 20px 24px 18px; }
@@ -130,58 +122,19 @@ const WEEKS = [
 function countTrends(week) {
   return week.sections.reduce((sum, s) => sum + s.trends.length, 0);
 }
-
 function renderTrend(t) {
-  return `<div class="trend">
-    <div class="trend-name">${t.name}</div>
-    <div class="trend-fields">
-      <div class="trend-field"><span class="lbl">Qué es</span><span class="val">${t.que_es}</span></div>
-      <div class="trend-field"><span class="lbl">Público</span><span class="val">${t.publico}</span></div>
-      <div class="trend-field"><span class="lbl">Para marca</span><span class="val">${t.para_marca}</span></div>
-    </div>
-  </div>`;
+  return `<div class="trend"><div class="trend-name">${t.name}</div><div class="trend-fields"><div class="trend-field"><span class="lbl">Qué es</span><span class="val">${t.que_es}</span></div><div class="trend-field"><span class="lbl">Público</span><span class="val">${t.publico}</span></div><div class="trend-field"><span class="lbl">Para marca</span><span class="val">${t.para_marca}</span></div></div></div>`;
 }
-
 function renderSection(s, wid, isLatest) {
   const sid = `s-${wid}-${s.id}`;
-  const openByDefault = isLatest;
-  return `<div class="section">
-    <div class="section-header" onclick="toggleSec('${sid}')">
-      <div class="section-left">
-        <span class="section-icon">${s.icon}</span>
-        <span class="section-title">${s.title}${s.subtitle ? ' <span style="color:#bbb;font-weight:400;font-size:11px">· ' + s.subtitle + '</span>' : ''}</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:6px">
-        <span class="section-pill">${s.trends.length}</span>
-        <svg class="section-chev${openByDefault ? ' open' : ''}" id="sc-${sid}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-    </div>
-    <div class="section-body${openByDefault ? ' open' : ''}" id="sb-${sid}">${s.trends.map(renderTrend).join('')}</div>
-  </div>`;
+  return `<div class="section"><div class="section-header" onclick="toggleSec('${sid}')"><div class="section-left"><span class="section-icon">${s.icon}</span><span class="section-title">${s.title}${s.subtitle ? ' <span style="color:#bbb;font-weight:400;font-size:11px">· ' + s.subtitle + '</span>' : ''}</span></div><div style="display:flex;align-items:center;gap:6px"><span class="section-pill">${s.trends.length}</span><svg class="section-chev${isLatest ? ' open' : ''}" id="sc-${sid}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="section-body${isLatest ? ' open' : ''}" id="sb-${sid}">${s.trends.map(renderTrend).join('')}</div></div>`;
 }
-
 function renderWeek(week, isLatest) {
   const total = countTrends(week);
   const wid = week.id;
-  return `<div class="week-block">
-    <div class="week-header${isLatest ? ' latest' : ''}" onclick="toggleWeek('${wid}')">
-      <div class="week-left">
-        <div class="week-dot${isLatest ? '' : ' old'}"></div>
-        <span class="week-label${isLatest ? '' : ' old'}">${week.label}</span>
-      </div>
-      <div class="week-meta">
-        <span class="pill${isLatest ? ' red' : ''}">${total} tendencias</span>
-        <svg class="chevron${isLatest ? ' open' : ''}" id="wc-${wid}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:${isLatest ? 'rgba(255,255,255,0.6)' : '#aaa'}"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-    </div>
-    <div class="week-body${isLatest ? ' open' : ''}" id="wb-${wid}">
-      ${week.sections.map(s => renderSection(s, wid, isLatest)).join('')}
-    </div>
-  </div>`;
+  return `<div class="week-block"><div class="week-header${isLatest ? ' latest' : ''}" onclick="toggleWeek('${wid}')"><div class="week-left"><div class="week-dot${isLatest ? '' : ' old'}"></div><span class="week-label${isLatest ? '' : ' old'}">${week.label}</span></div><div class="week-meta"><span class="pill${isLatest ? ' red' : ''}">${total} tendencias</span><svg class="chevron${isLatest ? ' open' : ''}" id="wc-${wid}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:${isLatest ? 'rgba(255,255,255,0.6)' : '#aaa'}"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="week-body${isLatest ? ' open' : ''}" id="wb-${wid}">${week.sections.map(s => renderSection(s, wid, isLatest)).join('')}</div></div>`;
 }
-
 document.getElementById('root').innerHTML = WEEKS.map((w, i) => renderWeek(w, i === 0)).join('');
-
 function toggleWeek(wid) {
   const body = document.getElementById('wb-' + wid);
   const chev = document.getElementById('wc-' + wid);
@@ -189,7 +142,6 @@ function toggleWeek(wid) {
   body.classList.toggle('open', !isOpen);
   chev.classList.toggle('open', !isOpen);
 }
-
 function toggleSec(sid) {
   const body = document.getElementById('sb-' + sid);
   const chev = document.getElementById('sc-' + sid);
