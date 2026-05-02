@@ -4,151 +4,2158 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Owned Media Trends Radar — Winclap</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8f7f5; color: #1a1a1a; font-size: 14px; line-height: 1.6; }
-.header { background: #1a1a1a; color: #fff; padding: 20px 24px 18px; }
-.brand { font-size: 11px; color: #E8392A; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 4px; }
-.header h1 { font-size: 16px; font-weight: 600; }
-.header-sub { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 3px; }
-.container { padding: 16px; max-width: 720px; margin: 0 auto; }
-.week-block { margin-bottom: 12px; border-radius: 10px; overflow: hidden; border: 1px solid #e8e6e0; background: #fff; }
-.week-header { display: flex; align-items: center; justify-content: space-between; padding: 13px 16px; cursor: pointer; user-select: none; gap: 10px; }
-.week-header:hover { background: #fafaf8; }
-.week-header.latest { background: #1a1a1a; color: #fff; }
-.week-header.latest:hover { background: #222; }
-.week-left { display: flex; align-items: center; gap: 10px; }
-.week-dot { width: 8px; height: 8px; border-radius: 50%; background: #E8392A; flex-shrink: 0; }
-.week-dot.old { background: #ccc; }
-.week-label { font-size: 13px; font-weight: 600; }
-.week-label.old { color: #888; font-weight: 500; }
-.week-meta { display: flex; align-items: center; gap: 8px; }
-.pill { font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 20px; background: #f0efeb; color: #666; white-space: nowrap; }
-.pill.red { background: #E8392A; color: #fff; }
-.chevron { width: 15px; height: 15px; transition: transform 0.2s ease; flex-shrink: 0; }
-.chevron.open { transform: rotate(180deg); }
-.week-body { display: none; border-top: 1px solid #f0efeb; }
-.week-body.open { display: block; }
-.section { border-bottom: 1px solid #f0efeb; }
-.section:last-child { border-bottom: none; }
-.section-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px 10px 20px; cursor: pointer; user-select: none; gap: 10px; }
-.section-header:hover { background: #fafaf8; }
-.section-left { display: flex; align-items: center; gap: 8px; }
-.section-icon { font-size: 16px; line-height: 1; }
-.section-title { font-size: 12px; font-weight: 600; color: #444; }
-.section-pill { font-size: 10px; font-weight: 500; padding: 1px 6px; border-radius: 20px; background: #f0efeb; color: #888; }
-.section-chev { width: 14px; height: 14px; color: #bbb; transition: transform 0.2s ease; }
-.section-chev.open { transform: rotate(180deg); }
-.section-body { display: none; padding: 0 16px 4px 20px; }
-.section-body.open { display: block; }
-.trend { padding: 10px 0; border-bottom: 1px solid #f5f4f0; }
-.trend:last-child { border-bottom: none; }
-.trend-name { font-size: 12px; font-weight: 600; color: #1a1a1a; margin-bottom: 6px; display: flex; align-items: flex-start; gap: 6px; }
-.trend-name::before { content: "▸"; color: #E8392A; font-size: 10px; margin-top: 2px; flex-shrink: 0; }
-.trend-fields { display: flex; flex-direction: column; gap: 3px; padding-left: 16px; }
-.trend-field { font-size: 11px; color: #444; line-height: 1.5; display: flex; gap: 6px; }
-.trend-field .lbl { font-weight: 600; color: #aaa; white-space: nowrap; min-width: 65px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.3px; padding-top: 1px; flex-shrink: 0; }
-.trend-field .val { color: #333; }
-.footer { text-align: center; padding: 12px 16px 20px; color: #bbb; font-size: 11px; }
+:root{--black:#0A0A0A;--white:#FFFFFF;--red:#FE805B;--green:#1CC9B9;--purple:#CEABFF;--blue:#87DBFF;--yellow:#FFD447;--pink:#FF9B96;--bg:#F2F1EE;--card:#FFFFFF;--border:#E0DFDB;--t1:#0A0A0A;--t2:#555550;--t3:#9A9990}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh}
+header{background:var(--black);color:var(--white)}
+.header-inner{max-width:1100px;margin:0 auto;padding:20px 32px 0}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-dot{width:8px;height:8px;border-radius:50%;background:var(--red);margin-top:2px}
+.brand-text{font-family:'Space Mono',monospace;font-size:12px;color:var(--white);letter-spacing:.06em}
+.brand-sub{font-size:11px;color:var(--t3);font-family:'Space Mono',monospace;margin-top:2px}
+.live-badge{display:flex;align-items:center;gap:6px;background:#1A1A1A;border:1px solid #333;padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;color:var(--t3);font-family:'Space Mono',monospace}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.header-title{margin-bottom:20px}
+.header-title h1{font-size:26px;font-weight:700;color:var(--white);line-height:1.2}
+.header-title h1 span{color:var(--red)}
+.header-title p{font-size:13px;color:var(--t3);margin-top:6px}
+.tab-nav{display:flex;border-bottom:1px solid #1F1F1F}
+.tab-btn{background:transparent;border:none;color:var(--t3);font-size:13px;font-weight:600;padding:12px 24px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .2s;font-family:'DM Sans',sans-serif}
+.tab-btn:hover{color:var(--white)}
+.tab-btn.active{color:var(--red);border-bottom-color:var(--red)}
+.tab-content{display:none}.tab-content.active{display:block}
+/* TENDENCIAS */
+.container{max-width:860px;margin:0 auto;padding:32px 24px}
+.week-card{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.week-header{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;cursor:pointer;user-select:none;transition:background .15s}
+.week-header:hover{background:#FAFAF9}
+.week-label{font-size:15px;font-weight:700}
+.week-meta{font-size:12px;color:var(--t3);margin-top:3px;font-family:'Space Mono',monospace}
+.week-right{display:flex;align-items:center;gap:12px}
+.chevron{font-size:12px;color:var(--t3);transition:transform .25s}
+.week-card.open .chevron{transform:rotate(180deg)}
+.week-body{display:none;border-top:1px solid var(--border)}
+.week-card.open .week-body{display:block}
+.sec-item{border-bottom:1px solid var(--border)}.sec-item:last-child{border-bottom:none}
+.sec-header{display:flex;align-items:center;gap:10px;padding:14px 22px;cursor:pointer;user-select:none;transition:background .15s}
+.sec-header:hover{background:#FAFAF9}
+.sec-icon{font-size:18px}
+.sec-info{flex:1}
+.sec-title{font-size:14px;font-weight:600}
+.sec-sub{font-size:11px;color:var(--t3);margin-top:1px}
+.sec-badge{background:var(--bg);color:var(--t2);font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px}
+.sec-chevron{font-size:11px;color:var(--t3);transition:transform .2s}
+.sec-item.open .sec-chevron{transform:rotate(180deg)}
+.sec-body{display:none;padding:0 22px 18px}
+.sec-item.open .sec-body{display:block}
+.trend-item{padding:14px 0;border-bottom:1px solid var(--border);display:flex;gap:14px}
+.trend-item:last-child{border-bottom:none}
+.trend-num{font-family:'Space Mono',monospace;font-size:11px;color:var(--t3);padding-top:2px;min-width:20px}
+.trend-content{flex:1}
+.trend-name{font-size:14px;font-weight:600;margin-bottom:4px}
+.trend-why{font-size:13px;color:var(--t2);line-height:1.5;margin-bottom:6px}
+.trend-meta-row { display:flex; gap:8px; margin-bottom:3px; align-items:baseline; }
+.trend-meta-label { font-family:'Space Mono',monospace; font-size:9px; font-weight:700; color:var(--t3); text-transform:uppercase; letter-spacing:.06em; min-width:76px; padding-top:1px; }
+.trend-meta-val { font-size:12px; color:var(--t2); line-height:1.4; flex:1; }
+
+.trend-tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;background:var(--bg);color:var(--t2)}
+.tag.channel{background:#EBF7FF;color:#2A7AB5}
+.tag.format{background:#F3EEFF;color:#6B4DB8}
+.tag.brand{background:#FEF1EC;color:#C05A30}
+.empty-state{text-align:center;padding:24px;color:var(--t3);font-size:13px}
+/* CALENDARIO */
+#tab-calendar .cal-wrap{max-width:1100px;margin:0 auto;padding:0 24px 40px}
+.filters-bar{background:var(--card);border:1px solid var(--border);border-radius:12px;margin:24px 0 20px;overflow:hidden}
+.filters-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;cursor:pointer;user-select:none}
+.filters-header-left{display:flex;align-items:center;gap:10px}
+.filters-title{font-size:14px;font-weight:700}
+.filters-summary{font-size:12px;color:var(--t3)}
+.filter-toggle-btn{background:var(--bg);border:1px solid var(--border);color:var(--t2);font-size:12px;font-weight:600;padding:5px 14px;border-radius:20px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s}
+.filter-toggle-btn:hover{background:var(--border)}
+.filters-body{display:none;border-top:1px solid var(--border);padding:16px 20px}
+.filters-bar.open .filters-body{display:block}
+.filter-section{margin-bottom:14px}
+.filter-section:last-child{margin-bottom:0}
+.filter-section-label{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.08em;font-family:'Space Mono',monospace;margin-bottom:7px}
+.filter-chips{display:flex;flex-wrap:wrap;gap:6px}
+.filter-chip{background:var(--bg);border:1px solid var(--border);color:var(--t2);font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
+.filter-chip:hover{border-color:var(--red);color:var(--red)}
+.filter-chip.active{background:var(--black);border-color:var(--black);color:var(--white)}
+.filter-chip.client-active{background:var(--red);border-color:var(--red);color:var(--white)}
+.filters-footer{display:flex;justify-content:flex-end;padding-top:10px;border-top:1px solid var(--border);margin-top:10px}
+.clear-filters-btn{background:none;border:none;color:var(--t3);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif}
+.clear-filters-btn:hover{color:var(--red)}
+.toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.results-count{font-size:12px;color:var(--t3);font-family:'Space Mono',monospace;margin-left:auto}
+.active-pill{display:inline-flex;align-items:center;gap:5px;background:var(--black);color:var(--white);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px}
+.active-pill .x{cursor:pointer;opacity:.6;margin-left:2px}
+.active-pill .x:hover{opacity:1}
+.month-section{margin-bottom:28px}
+.month-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.month-name{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t2)}
+.month-line{flex:1;height:1px;background:var(--border)}
+.month-count{font-family:'Space Mono',monospace;font-size:10px;color:var(--t3)}
+.cal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.cal-card{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer;transition:all .18s}
+.cal-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.1);border-color:var(--red)}
+.cal-accent{height:3px}
+.cal-accent.civica{background:var(--blue)}
+.cal-accent.cultural{background:var(--purple)}
+.cal-accent.comercial{background:var(--red)}
+.cal-accent.festividad{background:var(--yellow)}
+.cal-inner{padding:12px}
+.cal-top{display:flex;align-items:flex-start;justify-content:space-between;gap:6px;margin-bottom:7px}
+.cal-date{font-family:'Space Mono',monospace;font-size:10px;font-weight:700;color:var(--t3)}
+.cal-impact{font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;text-transform:uppercase;letter-spacing:.05em}
+.impact-alto{background:#FDECEA;color:#C0392B}
+.impact-medio{background:#FEF6E8;color:#B7770D}
+.impact-bajo{background:#F2F2F0;color:var(--t3)}
+.cal-name{font-size:13px;font-weight:700;line-height:1.3;margin-bottom:6px}
+.cal-bottom{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.cal-flags{font-size:12px;letter-spacing:1px}
+.cal-cat{font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;text-transform:uppercase;letter-spacing:.04em}
+.cat-civica{background:#EBF7FF;color:#2A7AB5}
+.cat-cultural{background:#F3EEFF;color:#6B4DB8}
+.cat-comercial{background:#FEF1EC;color:#C05A30}
+.cat-festividad{background:#FFFAE8;color:#9A7200}
+.cal-clients{display:flex;flex-wrap:wrap;gap:3px;margin-top:6px}
+.ctag{font-size:9px;font-weight:700;background:var(--bg);color:var(--t2);padding:2px 6px;border-radius:10px;border:1px solid var(--border)}
+.no-results{text-align:center;padding:60px 24px;color:var(--t3);font-size:14px}
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:1000;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:var(--white);border-radius:16px;width:100%;max-width:580px;max-height:90vh;overflow-y:auto;position:relative;animation:modalIn .2s ease}
+@keyframes modalIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.modal-top-bar{height:4px;border-radius:16px 16px 0 0}
+.modal-top-bar.civica{background:var(--blue)}
+.modal-top-bar.cultural{background:var(--purple)}
+.modal-top-bar.comercial{background:var(--red)}
+.modal-top-bar.festividad{background:var(--yellow)}
+.modal-head{padding:20px 22px 0;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.modal-title{font-size:19px;font-weight:700;line-height:1.3;flex:1}
+.modal-close{background:var(--bg);border:none;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.modal-close:hover{background:var(--border)}
+.modal-body{padding:14px 22px 24px}
+.mrow{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.mlabel{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;min-width:72px}
+.mdivider{height:1px;background:var(--border);margin:14px 0}
+.msec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--t3);font-family:'Space Mono',monospace;margin-bottom:7px}
+.mdesc{font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:14px}
+.mbrand{background:#FEF7F5;border:1px solid #FADDD5;border-left:3px solid var(--red);border-radius:8px;padding:11px 13px;margin-bottom:14px}
+.mbrand p{font-size:13px;color:var(--t2);line-height:1.5}
+.mchips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
+.mchip{font-size:11px;font-weight:600;background:var(--bg);color:var(--t2);padding:3px 9px;border-radius:20px;border:1px solid var(--border)}
+.mclients{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.mclient{font-size:11px;font-weight:700;background:var(--black);color:var(--white);padding:3px 10px;border-radius:20px}
+.mclient-brief{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-top:8px;margin-bottom:8px}.mclient-brief-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}.mclient-brief-name{font-size:12px;font-weight:700;color:var(--t1)}.mclient-brief-canal{font-size:10px;font-weight:600;background:#EBF7FF;color:#2A7AB5;padding:2px 8px;border-radius:20px}.mclient-brief-angulo{font-size:11px;color:var(--t2);margin-bottom:6px;font-style:italic}.mclient-brief-copy{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--red);border-radius:6px;padding:8px 10px;font-size:12px;color:var(--t1);line-height:1.5;cursor:pointer;position:relative;word-break:break-word}.no-client-note{font-size:12px;color:var(--t3);font-style:italic}
+/* SUBGROUPS in transversal */
+.subgroup { margin-bottom: 14px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+.subgroup-header { display: flex; align-items: center; justify-content: space-between; padding: 9px 14px; cursor: pointer; user-select: none; }
+.subgroup-label { font-size: 12px; font-weight: 700; }
+.subgroup-count { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 20px; opacity: .8; }
+.subgroup-chevron { font-size: 10px; transition: transform .2s; }
+.subgroup.open .subgroup-chevron { transform: rotate(180deg); }
+.subgroup-body { display: none; border-top: 1px solid var(--border); background: var(--card); }
+.subgroup.open .subgroup-body { display: block; }
+.subgroup-body .trend-item { padding: 12px 14px; }
+.subgroup-body .trend-item:last-child { border-bottom: none; }
+
+/* TRENDS FILTERS — same style as calendar */
+.trends-filters-wrap { max-width: 860px; margin: 24px auto 0; padding: 0 24px; }
+
+/* SOURCES */
+.trend-sources{margin-top:6px}
+.sources-toggle{background:none;border:none;color:var(--t3);font-size:11px;font-weight:600;cursor:pointer;padding:0;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:4px;transition:color .15s}
+.sources-toggle:hover{color:var(--red)}
+.sources-list{display:none;margin-top:6px;padding:8px 10px;background:var(--bg);border-radius:6px;border-left:2px solid var(--border)}
+.sources-list.open{display:block}
+.source-item{display:flex;align-items:baseline;gap:6px;padding:3px 0}
+.source-num{font-family:'Space Mono',monospace;font-size:9px;color:var(--t3);min-width:14px}
+.source-link{font-size:11px;color:var(--blue);text-decoration:none;line-height:1.4;word-break:break-all}
+.source-link:hover{text-decoration:underline;color:var(--red)}
+.source-title{font-size:11px;color:var(--t2)}
+
+/* FINANCE SECTION */
+.finance-section{border:1px solid #D4EDDA;border-radius:10px;background:#F6FDF7;margin:0 22px 16px;overflow:hidden}
+.finance-header{display:flex;align-items:center;gap:8px;padding:12px 16px;cursor:pointer;user-select:none}
+.finance-header:hover{background:#EDFAF0}
+.finance-icon{font-size:16px}
+.finance-title{font-size:13px;font-weight:700;color:#1A6B30;flex:1}
+.finance-count{font-size:11px;font-weight:700;background:#D4EDDA;color:#1A6B30;padding:2px 8px;border-radius:20px}
+.finance-chevron{font-size:11px;color:#4CAF50;transition:transform .2s}
+.finance-section.open .finance-chevron{transform:rotate(180deg)}
+.finance-body{display:none;padding:0 16px 14px}
+.finance-section.open .finance-body{display:block}
+.finance-item{padding:10px 0;border-bottom:1px solid #D4EDDA}
+.finance-item:last-child{border-bottom:none}
+.finance-item-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:4px}
+.finance-name{font-size:13px;font-weight:700;color:#1A3A20;flex:1}
+.finance-flag{font-size:14px}
+.finance-countries{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:2px}
+.finance-why{font-size:12px;color:#2D5A3D;line-height:1.5;margin-bottom:6px}
+.finance-action{background:#D4EDDA;border-left:3px solid #4CAF50;border-radius:6px;padding:7px 10px;font-size:11px;color:#1A3A20;line-height:1.5;font-style:italic}
+.finance-type{font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+.ftype-pago{background:#D4EDDA;color:#1A6B30}
+.ftype-fx{background:#FFF3CD;color:#856404}
+.ftype-alerta{background:#FDECEA;color:#C0392B}
+.ftype-ciclo{background:#EBF7FF;color:#2A7AB5}
+
+.no-client-note{font-size:12px;color:var(--t3);font-style:italic}
+/* SUBGROUPS in transversal */
+.subgroup { margin-bottom: 14px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+.subgroup-header { display: flex; align-items: center; justify-content: space-between; padding: 9px 14px; cursor: pointer; user-select: none; }
+.subgroup-label { font-size: 12px; font-weight: 700; }
+.subgroup-count { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 20px; opacity: .8; }
+.subgroup-chevron { font-size: 10px; transition: transform .2s; }
+.subgroup.open .subgroup-chevron { transform: rotate(180deg); }
+.subgroup-body { display: none; border-top: 1px solid var(--border); background: var(--card); }
+.subgroup.open .subgroup-body { display: block; }
+.subgroup-body .trend-item { padding: 12px 14px; }
+.subgroup-body .trend-item:last-child { border-bottom: none; }
+
+/* TRENDS FILTERS — same style as calendar */
+.trends-filters-wrap { max-width: 860px; margin: 24px auto 0; padding: 0 24px; }
+
+/* SOURCES */
+.trend-sources{margin-top:6px}
+.sources-toggle{background:none;border:none;color:var(--t3);font-size:11px;font-weight:600;cursor:pointer;padding:0;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:4px;transition:color .15s}
+.sources-toggle:hover{color:var(--red)}
+.sources-list{display:none;margin-top:6px;padding:8px 10px;background:var(--bg);border-radius:6px;border-left:2px solid var(--border)}
+.sources-list.open{display:block}
+.source-item{display:flex;align-items:baseline;gap:6px;padding:3px 0}
+.source-num{font-family:'Space Mono',monospace;font-size:9px;color:var(--t3);min-width:14px}
+.source-link{font-size:11px;color:var(--blue);text-decoration:none;line-height:1.4;word-break:break-all}
+.source-link:hover{text-decoration:underline;color:var(--red)}
+.source-title{font-size:11px;color:var(--t2)}
+
+/* FINANCE SECTION */
+.finance-section{border:1px solid #D4EDDA;border-radius:10px;background:#F6FDF7;margin:0 22px 16px;overflow:hidden}
+.finance-header{display:flex;align-items:center;gap:8px;padding:12px 16px;cursor:pointer;user-select:none}
+.finance-header:hover{background:#EDFAF0}
+.finance-icon{font-size:16px}
+.finance-title{font-size:13px;font-weight:700;color:#1A6B30;flex:1}
+.finance-count{font-size:11px;font-weight:700;background:#D4EDDA;color:#1A6B30;padding:2px 8px;border-radius:20px}
+.finance-chevron{font-size:11px;color:#4CAF50;transition:transform .2s}
+.finance-section.open .finance-chevron{transform:rotate(180deg)}
+.finance-body{display:none;padding:0 16px 14px}
+.finance-section.open .finance-body{display:block}
+.finance-item{padding:10px 0;border-bottom:1px solid #D4EDDA}
+.finance-item:last-child{border-bottom:none}
+.finance-item-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:4px}
+.finance-name{font-size:13px;font-weight:700;color:#1A3A20;flex:1}
+.finance-flag{font-size:14px}
+.finance-countries{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:2px}
+.finance-why{font-size:12px;color:#2D5A3D;line-height:1.5;margin-bottom:6px}
+.finance-action{background:#D4EDDA;border-left:3px solid #4CAF50;border-radius:6px;padding:7px 10px;font-size:11px;color:#1A3A20;line-height:1.5;font-style:italic}
+.finance-type{font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+.ftype-pago{background:#D4EDDA;color:#1A6B30}
+.ftype-fx{background:#FFF3CD;color:#856404}
+.ftype-alerta{background:#FDECEA;color:#C0392B}
+.ftype-ciclo{background:#EBF7FF;color:#2A7AB5}
+
 </style>
 </head>
 <body>
-<div class="header">
-  <div class="brand">Winclap · Owned Media</div>
-  <h1>Trends Radar</h1>
-  <div class="header-sub">Archivo histórico de tendencias · BR · CO · AR · MX · CL</div>
+<header>
+  <div class="header-inner">
+    <div class="header-top">
+      <div class="brand">
+        <div class="brand-dot"></div>
+        <div>
+          <div class="brand-text">WINCLAP · OWNED MEDIA LAB</div>
+          <div class="brand-sub">Trends Radar</div>
+        </div>
+      </div>
+      <div class="live-badge"><div class="live-dot"></div><span id="liveDate"></span></div>
+    </div>
+    <div class="header-title">
+      <h1>Owned Media <span>Trends Radar</span></h1>
+      <p>Inteligencia cultural semanal · BR · CO · AR · MX · CL · UY · EC · PE</p>
+    </div>
+    <nav class="tab-nav">
+      <button class="tab-btn active" onclick="showTab('trends',this)">📡 Tendencias</button>
+      <button class="tab-btn" onclick="showTab('calendar',this)">📅 Calendario 2026</button>
+    </nav>
+  </div>
+</header>
+
+<div id="tab-trends" class="tab-content active">
+  <div class="trends-filters-wrap">
+    <div class="filters-bar" id="tfBar">
+      <div class="filters-header" onclick="toggleTFilters()">
+        <div class="filters-header-left">
+          <span>🔍</span>
+          <span class="filters-title">Filtros</span>
+          <span class="filters-summary" id="tfSummary">Todas las tendencias</span>
+        </div>
+        <button class="filter-toggle-btn" id="tfToggleBtn">Abrir filtros ▾</button>
+      </div>
+      <div class="filters-body">
+        <div class="filter-section">
+          <div class="filter-section-label">País</div>
+          <div class="filter-chips" id="tfc-country">
+            <button class="filter-chip active" onclick="stf('country','ALL',this)">🌎 Todos</button>
+            <button class="filter-chip" onclick="stf('country','transversal',this)">✨ Transversal</button>
+            <button class="filter-chip" onclick="stf('country','BR',this)">🇧🇷 Brasil</button>
+            <button class="filter-chip" onclick="stf('country','CO',this)">🇨🇴 Colombia</button>
+            <button class="filter-chip" onclick="stf('country','AR',this)">🇦🇷 Argentina</button>
+            <button class="filter-chip" onclick="stf('country','MX',this)">🇲🇽 México</button>
+            <button class="filter-chip" onclick="stf('country','CL',this)">🇨🇱 Chile</button>
+            <button class="filter-chip" onclick="stf('country','UY',this)">🇺🇾 Uruguay</button>
+            <button class="filter-chip" onclick="stf('country','EC',this)">🇪🇨 Ecuador</button>
+            <button class="filter-chip" onclick="stf('country','PE',this)">🇵🇪 Perú</button>
+          </div>
+        </div>
+        <div class="filter-section">
+          <div class="filter-section-label">Categoría</div>
+          <div class="filter-chips" id="tfc-cat">
+            <button class="filter-chip active" onclick="stf('cat','ALL',this)">Todas</button>
+            <button class="filter-chip" onclick="stf('cat','cultura-pop',this)">🎬 Cultura Pop</button>
+            <button class="filter-chip" onclick="stf('cat','tendencia-digital',this)">📡 Digital</button>
+            <button class="filter-chip" onclick="stf('cat','pais',this)">🗺 Por país</button>
+          </div>
+        </div>
+        <div class="filter-section">
+          <div class="filter-section-label">Canal</div>
+          <div class="filter-chips" id="tfc-channel">
+            <button class="filter-chip active" onclick="stf('channel','ALL',this)">Todos</button>
+            <button class="filter-chip" onclick="stf('channel','Push',this)">🔔 Push</button>
+            <button class="filter-chip" onclick="stf('channel','Email',this)">📧 Email</button>
+            <button class="filter-chip" onclick="stf('channel','WhatsApp',this)">💬 WhatsApp</button>
+            <button class="filter-chip" onclick="stf('channel','SMS',this)">📱 SMS</button>
+            <button class="filter-chip" onclick="stf('channel','In-app',this)">📲 In-app</button>
+            <button class="filter-chip" onclick="stf('channel','Reels',this)">🎞 Reels</button>
+          </div>
+        </div>
+        <div class="filter-section">
+          <div class="filter-section-label">Cliente Winclap</div>
+          <div class="filter-chips" id="tfc-client">
+            <button class="filter-chip active" onclick="stf('client','ALL',this)">Todos</button>
+            <button class="filter-chip client-chip" onclick="stf('client','BURGER KING',this)">👑 Burger King</button>
+            <button class="filter-chip client-chip" onclick="stf('client','BODYTECH',this)">💪 Bodytech</button>
+            <button class="filter-chip client-chip" onclick="stf('client','CCU',this)">🍺 CCU</button>
+            <button class="filter-chip client-chip" onclick="stf('client','DESPEGAR',this)">✈️ Despegar</button>
+            <button class="filter-chip client-chip" onclick="stf('client','DOLFINTECH',this)">💵 Dolfintech</button>
+            <button class="filter-chip client-chip" onclick="stf('client','GRUPO JCPM',this)">🏬 Grupo JCPM</button>
+            <button class="filter-chip client-chip" onclick="stf('client','LAIKA',this)">🐶 Laika</button>
+            <button class="filter-chip client-chip" onclick="stf('client','NATURA',this)">🌿 Natura</button>
+            <button class="filter-chip client-chip" onclick="stf('client','RABBIT',this)">🐰 Rabbit</button>
+            <button class="filter-chip client-chip" onclick="stf('client','SCHOLAS',this)">📚 Scholas</button>
+            <button class="filter-chip client-chip" onclick="stf('client','SHELLBOX',this)">⛽ Shell Box</button>
+            <button class="filter-chip client-chip" onclick="stf('client','STRIX',this)">🚗 Strix</button>
+            <button class="filter-chip client-chip" onclick="stf('client','TELECOM',this)">📡 Telecom AR</button>
+          </div>
+        </div>
+        <div class="filters-footer">
+          <button class="clear-filters-btn" onclick="clearTFilters()">✕ Limpiar filtros</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container" id="root"></div>
 </div>
-<div class="container" id="root"></div>
-<div class="footer">Winclap · Owned Media Lab</div>
+
+<div id="tab-calendar" class="tab-content">
+  <div class="cal-wrap">
+    <div class="filters-bar" id="fBar">
+      <div class="filters-header" onclick="toggleFilters()">
+        <div class="filters-header-left">
+          <span>🔍</span>
+          <span class="filters-title">Filtros</span>
+          <span class="filters-summary" id="fSummary">Todos los eventos</span>
+        </div>
+        <button class="filter-toggle-btn" id="fToggleBtn">Abrir filtros ▾</button>
+      </div>
+      <div class="filters-body">
+        <div class="filter-section">
+          <div class="filter-section-label">País</div>
+          <div class="filter-chips" id="fc-country">
+            <button class="filter-chip active" onclick="sf('country','ALL',this)">🌎 Todos</button>
+            <button class="filter-chip" onclick="sf('country','BR',this)">🇧🇷 Brasil</button>
+            <button class="filter-chip" onclick="sf('country','CO',this)">🇨🇴 Colombia</button>
+            <button class="filter-chip" onclick="sf('country','AR',this)">🇦🇷 Argentina</button>
+            <button class="filter-chip" onclick="sf('country','MX',this)">🇲🇽 México</button>
+            <button class="filter-chip" onclick="sf('country','CL',this)">🇨🇱 Chile</button>
+            <button class="filter-chip" onclick="sf('country','UY',this)">🇺🇾 Uruguay</button>
+            <button class="filter-chip" onclick="sf('country','EC',this)">🇪🇨 Ecuador</button>
+            <button class="filter-chip" onclick="sf('country','PE',this)">🇵🇪 Perú</button>
+          </div>
+        </div>
+        <div class="filter-section">
+          <div class="filter-section-label">Categoría</div>
+          <div class="filter-chips" id="fc-cat">
+            <button class="filter-chip active" onclick="sf('cat','ALL',this)">Todas</button>
+            <button class="filter-chip" onclick="sf('cat','civica',this)">🏛 Cívica</button>
+            <button class="filter-chip" onclick="sf('cat','cultural',this)">🎭 Cultural</button>
+            <button class="filter-chip" onclick="sf('cat','comercial',this)">🛒 Comercial</button>
+            <button class="filter-chip" onclick="sf('cat','festividad',this)">🎉 Festividad</button>
+          </div>
+        </div>
+        <div class="filter-section">
+          <div class="filter-section-label">Impacto</div>
+          <div class="filter-chips" id="fc-impact">
+            <button class="filter-chip active" onclick="sf('impact','ALL',this)">Todos</button>
+            <button class="filter-chip" onclick="sf('impact','alto',this)">🔴 Alto</button>
+            <button class="filter-chip" onclick="sf('impact','medio',this)">🟠 Medio</button>
+            <button class="filter-chip" onclick="sf('impact','bajo',this)">⚪ Bajo</button>
+          </div>
+        </div>
+        <div class="filter-section">
+          <div class="filter-section-label">Industria / Tipo de negocio</div>
+          <div class="filter-chips" id="fc-industry">
+            <button class="filter-chip active" onclick="sf('industry','ALL',this)">Todas</button>
+            <button class="filter-chip" onclick="sf('industry','fastfood',this)">🍔 Fast Food</button>
+            <button class="filter-chip" onclick="sf('industry','restaurantes',this)">🍽 Restaurantes</button>
+            <button class="filter-chip" onclick="sf('industry','fintech',this)">💳 Fintech</button>
+            <button class="filter-chip" onclick="sf('industry','ecommerce',this)">🛍 E-commerce</button>
+            <button class="filter-chip" onclick="sf('industry','travel',this)">✈️ Travel</button>
+            <button class="filter-chip" onclick="sf('industry','fitness',this)">🏋️ Fitness</button>
+            <button class="filter-chip" onclick="sf('industry','beauty',this)">💄 Belleza</button>
+            <button class="filter-chip" onclick="sf('industry','retail',this)">🏪 Retail</button>
+            <button class="filter-chip" onclick="sf('industry','petshop',this)">🐾 Petshop</button>
+            <button class="filter-chip" onclick="sf('industry','telecom',this)">📱 Telecom</button>
+            <button class="filter-chip" onclick="sf('industry','seguros',this)">🛡 Seguros</button>
+            <button class="filter-chip" onclick="sf('industry','ong',this)">🤝 ONG</button>
+            <button class="filter-chip" onclick="sf('industry','b2b',this)">🏢 B2B</button>
+          </div>
+        </div>
+        <div class="filter-section">
+          <div class="filter-section-label">Cliente Winclap</div>
+          <div class="filter-chips" id="fc-client">
+            <button class="filter-chip active" onclick="sf('client','ALL',this)">Todos</button>
+            <button class="filter-chip" onclick="sf('client','BURGER KING',this)">👑 Burger King</button>
+            <button class="filter-chip" onclick="sf('client','BODYTECH',this)">💪 Bodytech</button>
+            <button class="filter-chip" onclick="sf('client','CCU',this)">🍺 CCU</button>
+            <button class="filter-chip" onclick="sf('client','DESPEGAR',this)">✈️ Despegar</button>
+            <button class="filter-chip" onclick="sf('client','DOLFINTECH',this)">💵 Dolfintech</button>
+            <button class="filter-chip" onclick="sf('client','GRUPO JCPM',this)">🏬 Grupo JCPM</button>
+            <button class="filter-chip" onclick="sf('client','LAIKA',this)">🐶 Laika</button>
+            <button class="filter-chip" onclick="sf('client','NATURA',this)">🌿 Natura</button>
+            <button class="filter-chip" onclick="sf('client','RABBIT',this)">🐰 Rabbit</button>
+            <button class="filter-chip" onclick="sf('client','SCHOLAS',this)">📚 Scholas</button>
+            <button class="filter-chip" onclick="sf('client','SHELLBOX',this)">⛽ Shell Box</button>
+            <button class="filter-chip" onclick="sf('client','STRIX',this)">🚗 Strix</button>
+            <button class="filter-chip" onclick="sf('client','TELECOM',this)">📡 Telecom AR</button>
+          </div>
+        </div>
+        <div class="filters-footer">
+          <button class="clear-filters-btn" onclick="clearFilters()">✕ Limpiar filtros</button>
+        </div>
+      </div>
+    </div>
+    <div class="toolbar" id="toolbar"><span class="results-count" id="rCount"></span></div>
+    <div id="cal-root"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="mOverlay" onclick="closeMO(event)">
+  <div class="modal" id="mBox">
+    <div class="modal-top-bar" id="mBar"></div>
+    <div class="modal-head">
+      <div class="modal-title" id="mTitle"></div>
+      <button class="modal-close" onclick="closeM()">✕</button>
+    </div>
+    <div class="modal-body" id="mBody"></div>
+  </div>
+</div>
+
 <script>
-const WEEKS = [
-  {
-    id: "2026-04-28",
-    label: "Semana del 28 de abril 2026",
-    sections: [
-      {
-        id: "transversal", icon: "✨", title: "Transversales", subtitle: "Todos los países",
-        trends: [
-          { name: "El Diablo Viste de Prada 2 — estreno 1 mayo, Disney+", que_es: "La secuela con Meryl Streep, Anne Hathaway y Emily Blunt estrena mañana; el tráiler tuvo 222M de views en 24hs, el más visto en la historia del estudio.", publico: "25–45, moda, nostalgia y cultura pop.", para_marca: "Moda, estética y poder femenino dominan esta semana — referencias al universo de la película tienen tracción altísima." },
-          { name: "Michael — biopic de Michael Jackson (estreno 24 abril)", que_es: "Debutó con $217M en su primer fin de semana, el mayor debut de un biopic musical de la historia.", publico: "18–55, transversal.", para_marca: "Iconografía y música de MJ tienen tracción total — funciona en cualquier categoría." },
-          { name: "PSG 5-4 Bayern Munich — Champions League", que_es: "Semifinal del 28/04 con 9 goles, una de las mejores de la historia; segundo leg este miércoles en Munich.", publico: "18–45, fanáticos del fútbol.", para_marca: "Anticipación al segundo leg — formatos de reacción y '¿remonta Bayern?'." },
-          { name: "Euphoria T3 — en emisión, HBO Max", que_es: "Tercera temporada activa desde el 12/04; capítulo 4 sale este domingo. Rosalía en el cast. Serie #1 en streaming global.", publico: "18–30, cultura pop y series.", para_marca: "Anticipación al episodio del domingo; referencias de estética y personajes." },
-          { name: "Él y ella — Netflix", que_es: "Primera serie en convertirse en fenómeno global de Netflix 2026 con 65M de visualizaciones.", publico: "25–45, romance y drama.", para_marca: "Tono emocional y de relaciones; fuerte para marcas lifestyle." },
-          { name: "Coachella 2026 — afterglow", que_es: "Karol G headlineó como primera latina, junto a Justin Bieber y Sabrina Carpenter; conversación post-festival aún activa.", publico: "18–35, música y cultura digital.", para_marca: "Looks y momentos icónicos del festival; contenido de 'mis favoritos'." },
-          { name: "TikTok Bounce Challenge", que_es: "Mini coreografía con pasos cortos y rebote dominando Reels y TikTok en toda LATAM esta semana.", publico: "15–30, creadores de contenido.", para_marca: "Hacer la versión del challenge con producto o equipo; muy bajo costo de producción." },
-          { name: "Mundial 2026 — cuenta regresiva activa", que_es: "Arranca el 11 de junio en México, EE.UU. y Canadá; grupos ya confirmados para todos los países.", publico: "18–55, fanáticos del fútbol.", para_marca: "Ventana de anticipación más grande del semestre — grupos, predicciones, '¿cómo te preparás?'." }
-        ]
-      },
-      {
-        id: "br", icon: "🇧🇷", title: "Brasil",
-        trends: [
-          { name: "Funk Brasileiro viral", que_es: "El funk carioca domina TikTok BR esta semana con baile do baile y beats locales.", publico: "16–35.", para_marca: "Usar audios de funk como fondo; challenges de baile de fácil replicación." },
-          { name: "Ronaldinho: Miniserie — Netflix", que_es: "Miniserie que lideró el ranking de Netflix en Brasil esta semana.", publico: "18–50, fútbol y cultura pop brasileña.", para_marca: "Nostalgia futbolera y orgullo nacional — fuerte para marcas con audiencia deportiva." }
-        ]
-      },
-      {
-        id: "co", icon: "🇨🇴", title: "Colombia",
-        trends: [
-          { name: "Orgullo colombiano por Karol G en Coachella", que_es: "Su histórico headlining genera conversación de orgullo nacional específicamente en redes CO.", publico: "18–35.", para_marca: "Tono de identidad colombiana; 'lo que Colombia le da al mundo'." },
-          { name: "Perfil Falso T3 — Netflix", que_es: "Telenovela colombiana que llegó al top 3 global de Netflix la semana del 20–26 de abril con 3M de views.", publico: "25–50, drama.", para_marca: "Muy fuerte en CO — formatos de '¿en qué capítulo estás?' o referencias al suspenso." }
-        ]
-      },
-      {
-        id: "ar", icon: "🇦🇷", title: "Argentina",
-        trends: [
-          { name: "Argentina en el Mundial — Grupo J", que_es: "Argentina vs Argelia, Jordania y Austria; conversación muy activa sobre el camino al título.", publico: "18–55.", para_marca: "Anticipación del torneo; apoyo a la selección y predicciones del grupo." },
-          { name: "Harry Styles 'Kiss All the Time'", que_es: "Single con fuerte presencia en Reels AR esta semana, millones de likes en contenido de la región.", publico: "18–35, mayormente femenino.", para_marca: "Audio para transiciones de producto, lifestyle o 'antes/después'." }
-        ]
-      },
-      {
-        id: "mx", icon: "🇲🇽", title: "México",
-        trends: [
-          { name: "México sede del Mundial — máxima conversación", que_es: "Partido inaugural México vs Sudáfrica en el Azteca el 11/06; el país entero en modo Mundial.", publico: "18–55.", para_marca: "Oportunidad más grande del semestre — countdown, orgullo local, activaciones pre-torneo." },
-          { name: "'Balenciaga' — El Malilla & Luis R Conriquez", que_es: "Regional mexicano viral en TikTok MX con millones de interacciones en challenges locales.", publico: "16–35.", para_marca: "Audio natural para cualquier Reel; muy familiar para la audiencia local." },
-          { name: "J Balvin en gira — mayo en MX", que_es: "Conciertos el 14, 17 y 20 de mayo en CDMX, Guadalajara y Monterrey.", publico: "18–35.", para_marca: "Contenido de anticipación para fans; hook con su repertorio actual." }
-        ]
-      },
-      {
-        id: "cl", icon: "🇨🇱", title: "Chile",
-        trends: [
-          { name: "Alto consumo de Champions League", que_es: "Chile tiene uno de los seguimientos más altos de fútbol europeo en LATAM; PSG-Bayern fue trending ayer.", publico: "20–45.", para_marca: "Segundo leg el miércoles — anticipación al partido de vuelta en Munich." },
-          { name: "Ed Sheeran LOOP Tour — Lima, 20 mayo", que_es: "Concierto en Lima con alta conversación en redes chilenas pre-fecha regional.", publico: "18–40.", para_marca: "Música de Ed Sheeran como audio de Reels; 'próximamente en nuestra región'." }
-        ]
-      }
-    ]
-  }
+document.getElementById('liveDate').textContent = new Date().toLocaleDateString('es-CO',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+const CLIENTS = {
+  "BURGER KING": {e:"👑",countries:["AR","CL"],industry:["fastfood","restaurantes"],
+    activations:{
+      comercial: {canal:"Push · App Mi BK", angulo:"Oferta de fecha con urgencia y descuento exclusivo app", copy:"🍔 [FECHA] tiene otro sabor. Combo especial solo en la app — válido hoy."},
+      cultural:  {canal:"Push · Stories", angulo:"Conectar la ocasión con un momento de disfrute real", copy:"En este [FECHA], el plan perfecto ya lo tienes. ¿Whopper en casa o en local?"},
+      civica:    {canal:"RRSS · In-app banner", angulo:"Tono neutro y festivo, sin politizar", copy:"Hoy es feriado y hay razones para celebrar. Te esperamos con el menú completo."},
+      festividad:{canal:"Push · Email", angulo:"Edición especial o producto de temporada", copy:"🎉 Se viene [FECHA] y Burger King lo festeja. Pedilo en la app con envío express."}
+    }},
+  "BODYTECH":    {e:"💪",countries:["CO"],industry:["fitness"],
+    activations:{
+      comercial: {canal:"Push · Email", angulo:"Fecha como detonador de hábito o compromiso", copy:"Este [FECHA] es el mejor momento para empezar. Primer mes 50% off — solo esta semana."},
+      cultural:  {canal:"Push · WhatsApp", angulo:"Bienestar como regalo o autocuidado", copy:"¿Ya tienes plan para [FECHA]? Regala (o regálate) una membresía Bodytech."},
+      civica:    {canal:"Email", angulo:"Feriado = tiempo para ti", copy:"Feriado activo. Los mejores no paran. Entrena con nosotros este [FECHA]."},
+      festividad:{canal:"Push", angulo:"Energía de la celebración como motivación", copy:"La mejor celebración de [FECHA] empieza en el gym. ¿Agendamos tu clase?"}
+    }},
+  "CCU":         {e:"🍺",countries:["CL"],industry:["b2b","ecommerce"],
+    activations:{
+      comercial: {canal:"WhatsApp Business · Email B2B", angulo:"Anticipa el pedido antes del peak de consumo", copy:"📦 [FECHA] se acerca — tus clientes van a pedir más. ¿Ya hiciste tu pedido esta semana?"},
+      cultural:  {canal:"WhatsApp", angulo:"Recordatorio de reabastecimiento por ocasión de consumo", copy:"Con [FECHA] se vende más. Reabastecer ahora evita quiebres de stock el fin de semana."},
+      civica:    {canal:"WhatsApp", angulo:"Feriado = aumento de tráfico en el local", copy:"Feriado largo = más ventas en tu local. ¿Tienes suficiente stock de bebidas?"},
+      festividad:{canal:"Email · WhatsApp", angulo:"Oportunidad de venta aumentada en festividad", copy:"🎉 [FECHA] mueve más bebidas. Pedido de temporada disponible con descuento por volumen."}
+    }},
+  "DESPEGAR":    {e:"✈️",countries:["BR","CO","AR","MX","CL","UY","EC","PE"],industry:["travel","ecommerce"],
+    activations:{
+      comercial: {canal:"Email · Push", angulo:"Anticipación de viaje con oferta de tiempo limitado", copy:"✈️ [FECHA] es el pretexto perfecto. Vuelos + hotel desde $XX — solo hasta el domingo."},
+      cultural:  {canal:"Push · Email", angulo:"La fecha como destino en sí mismo (festivales, tradiciones locales)", copy:"Vive [FECHA] donde más se celebra. Paquetes especiales ya disponibles."},
+      civica:    {canal:"Push · Email", angulo:"Feriado largo = escapada de fin de semana", copy:"Puente de [FECHA]: 3 días para escapar. Las mejores ofertas se agotan rápido."},
+      festividad:{canal:"Email · Push", angulo:"Festividad como motivación de viaje cultural", copy:"🎉 [FECHA] se vive diferente en cada ciudad. ¿A cuál vas este año?"}
+    }},
+  "DOLFINTECH":  {e:"💵",countries:["BR","CO","AR","MX"],industry:["fintech"],
+    activations:{
+      comercial: {canal:"Push · SMS", angulo:"Fecha especial = momento de enviar dinero a la familia", copy:"💵 Este [FECHA] hazlos sentir cerca. Envía dinero con Barri/DolEx — sin comisión hoy."},
+      cultural:  {canal:"Push · WhatsApp", angulo:"Tradición familiar como motivo de transferencia", copy:"En [FECHA] la familia se une. Manda lo que necesitan — rápido, seguro, desde tu cel."},
+      civica:    {canal:"Push", angulo:"Feriado en el país de origen = momento emotivo de conexión", copy:"Hoy es feriado en [PAÍS]. ¿Ya les mandaste algo para celebrar?"},
+      festividad:{canal:"Push · SMS", angulo:"Regalo económico = transferencia digital", copy:"🎁 El mejor regalo de [FECHA] llega en minutos. Envía dinero con Barri — sin costo."}
+    }},
+  "GRUPO JCPM":  {e:"🏬",countries:["BR"],industry:["retail","ecommerce"],
+    activations:{
+      comercial: {canal:"Push · Email · SMS", angulo:"Fecha comercial = tráfico al mall", copy:"🛍 [FECHA] en RioMar: todas las tiendas, un solo lugar. Moda, regalos y más — ven hoy."},
+      cultural:  {canal:"Push · Email", angulo:"El mall como espacio de celebración y experiencia", copy:"Celebra [FECHA] en familia en RioMar. Entretenimiento, gastronomía y las mejores marcas."},
+      civica:    {canal:"Push", angulo:"Feriado = experiencia de ocio en el mall", copy:"Feriado en RioMar: horario extendido y todas las opciones para disfrutar el día."},
+      festividad:{canal:"Push · Email", angulo:"Festividad = evento especial en el espacio físico", copy:"🎉 [FECHA] tiene un plan en RioMar. Eventos, descuentos y diversión para toda la familia."}
+    }},
+  "LAIKA":       {e:"🐶",countries:["CO"],industry:["petshop","ecommerce"],
+    activations:{
+      comercial: {canal:"Push · Email", angulo:"La mascota también celebra — regalo o producto especial", copy:"🐾 Este [FECHA], tu peludo también merece algo especial. Envío gratis hoy en Laika."},
+      cultural:  {canal:"Push · Email", angulo:"Fecha como excusa de compra recurrente", copy:"En [FECHA] más tiempo en casa = más tiempo con tu perro. ¿Tiene todo lo que necesita?"},
+      civica:    {canal:"Push", angulo:"Feriado = paseo o actividad con mascota", copy:"Feriado con patas 🐾. ¿Listo para el paseo? Recuerda tener snacks y accesorios."},
+      festividad:{canal:"Push · Email", angulo:"Festividad puede asustar a las mascotas — contenido útil + oferta", copy:"🎉 Los festejos de [FECHA] pueden estresar a tu mascota. Calming treats disponibles en Laika."}
+    }},
+  "NATURA":      {e:"🌿",countries:["BR"],industry:["beauty","ecommerce"],
+    activations:{
+      comercial: {canal:"Email · Push · WhatsApp consultoras", angulo:"Fecha = regalo de belleza con propósito", copy:"🌿 Un regalo que cuida. Kits especiales de [FECHA] — naturales, sostenibles, únicos."},
+      cultural:  {canal:"Email · Push", angulo:"Belleza como ritual de autocuidado en la fecha", copy:"Celebra [FECHA] contigo misma. Nueva rutina de cuidado — descubre qué hay para ti."},
+      civica:    {canal:"Email · WhatsApp consultoras", angulo:"Feriado = momento de pausa y autocuidado", copy:"Hoy es para ti. Pausa, cuídate y disfruta. Tu consultora tiene lo que necesitas."},
+      festividad:{canal:"Email · Push", angulo:"Festividad = experiencia sensorial de regalo", copy:"🎁 [FECHA] huele a Natura. Kits de regalo disponibles — elige el tuyo antes de que se agoten."}
+    }},
+  "RABBIT":      {e:"🐰",countries:["MX"],industry:["b2b","ecommerce"],
+    activations:{
+      comercial: {canal:"WhatsApp Business", angulo:"Peak de consumo = anticipar pedido del tendero", copy:"📦 [FECHA] se acerca y tu tienda lo va a notar. Haz tu pedido hoy y recíbelo a tiempo."},
+      cultural:  {canal:"WhatsApp", angulo:"Ocasión de consumo elevada = reabastecimiento urgente", copy:"Con [FECHA] se mueve más. ¿Ya revisaste tu inventario? Pedido exprés disponible."},
+      civica:    {canal:"WhatsApp", angulo:"Feriado = más clientes en la tienda", copy:"Feriado y tu tienda llena. Asegura el stock de los más pedidos — pide ahora en Rabbit."},
+      festividad:{canal:"WhatsApp · Push", angulo:"Festividad local = productos específicos de alta rotación", copy:"🎉 [FECHA] mueve más en tu zona. Reabastecer hoy = vender más mañana."}
+    }},
+  "SCHOLAS":     {e:"📚",countries:["BR","CO","AR","MX","CL","UY","EC","PE"],industry:["ong"],
+    activations:{
+      comercial: {canal:"Email · WhatsApp", angulo:"Fechas comerciales como oportunidad de donación o voluntariado", copy:"Este [FECHA], tu compra puede cambiar una vida. Conoce cómo Scholas transforma la educación."},
+      cultural:  {canal:"Email · Push", angulo:"Fecha cultural como reflejo de los valores de Scholas", copy:"📚 [FECHA] nos recuerda quiénes somos. Scholas celebra la diversidad que nos une."},
+      civica:    {canal:"Email", angulo:"Fecha cívica = reflexión sobre ciudadanía y educación", copy:"En este [FECHA], Scholas reafirma su compromiso con la educación como derecho."},
+      festividad:{canal:"Email · RRSS", angulo:"Festividad como expresión cultural que Scholas abraza", copy:"🎉 Cada festividad es una lección. Scholas aprende con las comunidades que acompaña."}
+    }},
+  "SHELLBOX":    {e:"⛽",countries:["AR","CL"],industry:["seguros","retail"],
+    activations:{
+      comercial: {canal:"Push · SMS", angulo:"Fecha de alto tráfico vehicular = cashback o beneficio en carga", copy:"⛽ [FECHA] hay más autos en la ruta. Carga en Shell y suma puntos dobles hoy."},
+      cultural:  {canal:"Push", angulo:"Salida de fin de semana o viaje = necesidad de cargar", copy:"¿Salís este [FECHA]? Cargá Shell antes de arrancar y acumulá beneficios en el camino."},
+      civica:    {canal:"Push · SMS", angulo:"Feriado largo = más km recorridos = más puntos", copy:"Feriado largo, más kilómetros. Cada carga en Shell te acerca a tu próximo beneficio."},
+      festividad:{canal:"Push", angulo:"Festividad = desplazamiento = oportunidad de engagement", copy:"🎉 [FECHA] te lleva a algún lado. Cargá Shell y que el camino te traiga puntos."}
+    }},
+  "STRIX":       {e:"🚗",countries:["AR"],industry:["seguros"],
+    activations:{
+      comercial: {canal:"Push · Email", angulo:"Fecha de alto tráfico = mayor exposición al riesgo", copy:"🚗 Más autos en la calle este [FECHA]. ¿Tu auto tiene la protección que merece?"},
+      cultural:  {canal:"Push", angulo:"Salida cultural o familiar = chequeo de seguridad del vehículo", copy:"Antes de salir este [FECHA], chequea que tu GPS Strix esté activo. Tu auto te lo agradece."},
+      civica:    {canal:"Push · SMS", angulo:"Feriado largo = más robos y siniestros en Argentina", copy:"Feriado largo = más riesgo vehicular. Strix monitorea tu auto mientras vos disfrutás."},
+      festividad:{canal:"Push", angulo:"Festividad = desplazamiento nocturno = riesgo elevado", copy:"🎉 [FECHA] se celebra, pero el riesgo no para. Strix cuida tu auto mientras vos festejás."}
+    }},
+  "TELECOM":     {e:"📡",countries:["AR"],industry:["telecom","retail"],
+    activations:{
+      comercial: {canal:"Push · Email · SMS", angulo:"Fecha comercial = upgrade de plan o equipo con oferta", copy:"📱 Este [FECHA], renueva tu celular con Telecom. Cuotas sin interés y nuevo plan incluido."},
+      cultural:  {canal:"Push · Email", angulo:"Momento de conexión = relevancia del servicio", copy:"[FECHA] se vive mejor conectado. Mejora tu plan y disfruta sin límites con Flow."},
+      civica:    {canal:"Push", angulo:"Feriado = más consumo de streaming en casa", copy:"Feriado en casa = día Flow. ¿Ya tenés acceso a todo el contenido que querés?"},
+      festividad:{canal:"Push · SMS", angulo:"Festividad = más llamadas y datos a la familia", copy:"🎉 [FECHA] conecta familias. Más datos, más llamadas — sin preocuparte por el saldo."}
+    }}
+};
+
+const IND = {
+  fastfood:    s=>["aliment","gastro","restaur","food","comida","fmcg","bebida","delivery"].some(k=>s.includes(k)),
+  restaurantes:s=>["gastro","restaur","comida","food","delivery","bebida"].some(k=>s.includes(k)),
+  fintech:     s=>["fintech","financ","seguro","banco","wallet","pago","remesa"].some(k=>s.includes(k)),
+  ecommerce:   s=>["retail","ecommerce","e-commerce","moda","electr","compras","b2b"].some(k=>s.includes(k)),
+  travel:      s=>["viaje","travel","turismo","hotel","aerol"].some(k=>s.includes(k)),
+  fitness:     s=>["fitness","deporte","salud","bienestar"].some(k=>s.includes(k)),
+  beauty:      s=>["bellez","cosmet","skincare","estetic"].some(k=>s.includes(k)),
+  retail:      s=>["retail","ecommerce","moda","electr","compras"].some(k=>s.includes(k)),
+  petshop:     s=>["mascot","pet","animal"].some(k=>s.includes(k)),
+  telecom:     s=>["telecom","tecnol","tech","software","digital","celular","suscripcion"].some(k=>s.includes(k)),
+  seguros:     s=>["seguro","auto","vehic","financ"].some(k=>s.includes(k)),
+  ong:         s=>["ong","educ","cultura","social","comuni"].some(k=>s.includes(k)),
+  b2b:         s=>["b2b","comercio","distrib","abastec"].some(k=>s.includes(k))
+};
+
+function getClients(ev){
+  return Object.entries(CLIENTS).filter(([n,c])=>{
+    const cOk=ev.countries.some(ec=>c.countries.includes(ec));
+    const sL=ev.sectors.map(s=>s.toLowerCase());
+    const iOk=c.industry.some(ind=>IND[ind]&&sL.some(s=>IND[ind](s)));
+    return cOk&&iOk;
+  }).map(([n])=>n);
+}
+
+const CALENDAR=[
+  {date:"2026-05-01",name:"Día Internacional del Trabajo",countries:["BR","CO","AR","MX","CL","UY","EC","PE"],category:"civica",impact:"alto",description:"Feriado laboral transversal en LATAM. Alta movilización sindical y discurso sobre derechos. Momento de escucha, no de venta agresiva.",brand:"Comunicar valores corporativos: trato justo y beneficios. Evitar promociones comerciales directas.",sectors:["Recursos humanos","Seguros","Fintech","Alimentación","FMCG"]},
+  {date:"2026-05-10",name:"Día de las Madres (BR)",countries:["BR"],category:"comercial",impact:"alto",description:"Segunda fecha comercial más importante de Brasil. Ventas de regalos, flores y experiencias se disparan 2–3 semanas antes.",brand:"Activar journeys anticipados desde el 25 de abril. Segmentar por historial de compra y LTV.",sectors:["Retail","Ecommerce","Alimentación","Electrónica","Flores","Joyería","Cosméticos","Belleza"]},
+  {date:"2026-05-11",name:"Día de las Madres (CO · CL · EC · PE · UY)",countries:["CO","CL","EC","PE","UY"],category:"comercial",impact:"alto",description:"Primer domingo de mayo. Fecha de máximo volumen comercial del primer semestre en estos mercados.",brand:"Journey completo: awareness (2 sem antes) → consideración → conversión → post-compra.",sectors:["Retail","Ecommerce","Restaurantes","Gastronomía","Viajes","Travel","Flores","Fitness","Belleza","Cosméticos","Petshop"]},
+  {date:"2026-05-15",name:"Día del Maestro (MX)",countries:["MX"],category:"cultural",impact:"medio",description:"Reconocimiento docente con alta resonancia emocional. Feriado en escuelas públicas.",brand:"Marcas de educación, libros y tecnología tienen alta relevancia.",sectors:["Educación","Tecnología","Telecom","Editorial"]},
+  {date:"2026-05-21",name:"Glorias Navales (CL)",countries:["CL"],category:"civica",impact:"alto",description:"Feriado nacional chileno. Identidad nacional fuerte. Evitar campañas frívolas.",brand:"Silencio comercial o mensajes de orgullo nacional con mucho cuidado.",sectors:["Gobierno","Medios","Educación"]},
+  {date:"2026-05-25",name:"Día de la Patria (AR)",countries:["AR"],category:"civica",impact:"alto",description:"Feriado nacional argentino. Revolución de Mayo. Identidad nacional muy presente.",brand:"Ángulos de marca patria. Evitar descuentos que trivialicen la fecha.",sectors:["Retail","Alimentación","FMCG","Seguros","Fintech","Telecom"]},
+  {date:"2026-06-01",name:"CyberDay Chile",countries:["CL"],category:"comercial",impact:"alto",description:"Evento de e-commerce más importante de Chile (1–3 junio). Preparación clave desde mayo.",brand:"Journey: teaser (2 sem antes) → early access → peak días 1-2 → recuperación de carrito.",sectors:["Ecommerce","Retail","Electrónica","Moda","Viajes","Travel","Fintech","Telecom","Belleza"]},
+  {date:"2026-06-01",name:"Día del Niño + Elecciones Judiciales (MX)",countries:["MX"],category:"civica",impact:"alto",description:"Día del Niño festivo y comercial; simultáneamente elecciones al Poder Judicial. Contexto polarizado. Brand safety crítico.",brand:"Separar creatividades. Las de niños no deben rozar el contexto electoral.",sectors:["Juguetes","Entretenimiento","Retail","Ecommerce","Telecom"]},
+  {date:"2026-06-12",name:"Día dos Namorados (BR)",countries:["BR"],category:"comercial",impact:"alto",description:"San Valentín brasileño. Alta conversión en flores, joyas, experiencias y restaurantes.",brand:"Segmentación de parejas. Journey de regalo personalizado. Ventana: 2 semanas antes.",sectors:["Flores","Joyería","Gastronomía","Restaurantes","Viajes","Travel","Ecommerce","Belleza","Cosméticos"]},
+  {date:"2026-06-16",name:"Día del Padre (CO · EC · PE)",countries:["CO","EC","PE"],category:"comercial",impact:"alto",description:"Tercer domingo de junio. Segunda fecha de regalo más importante del año en estos mercados.",brand:"Early journey desde primera semana de junio.",sectors:["Retail","Electrónica","Ropa","Gastronomía","Restaurantes","Deporte","Fitness","Petshop"]},
+  {date:"2026-06-20",name:"Día de la Bandera (AR)",countries:["AR"],category:"civica",impact:"medio",description:"Feriado nacional argentino. Identidad nacional moderada.",brand:"Contenido patriótico. Bajo impacto comercial directo.",sectors:["Medios","Educación","Telecom"]},
+  {date:"2026-06-21",name:"Inti Raymi — Fiesta del Sol",countries:["EC","PE"],category:"cultural",impact:"alto",description:"Celebración andina del solsticio. Alta sensibilidad cultural. Mal uso puede generar backlash fuerte.",brand:"Solo activar si la marca tiene conexión auténtica. Evitar apropiación cultural.",sectors:["Turismo","Travel","Artesanía","ONG","Cultura"]},
+  {date:"2026-06-29",name:"Hot Sale México",countries:["MX"],category:"comercial",impact:"alto",description:"Evento de e-commerce más importante de México (29 jun–1 jul). Récord en 2025.",brand:"Journey: preventa (10 días antes) → early access → peak → remarketing día 3.",sectors:["Ecommerce","Retail","Electrónica","Moda","Viajes","Travel","Fintech","Telecom","FMCG","B2B"]},
+  {date:"2026-07-09",name:"Independencia (AR)",countries:["AR"],category:"civica",impact:"alto",description:"Feriado nacional argentino. Identidad nacional muy presente.",brand:"Orgullo nacional. Bajo volumen comercial el día exacto.",sectors:["Retail","Alimentación","FMCG","Seguros","Fintech","Telecom"]},
+  {date:"2026-07-20",name:"Independencia (CO)",countries:["CO"],category:"civica",impact:"alto",description:"Feriado nacional colombiano. Marcas con herencia colombiana tienen ventaja.",brand:"Orgullo local. Herencia colombiana como palanca.",sectors:["Retail","Alimentación","FMCG","Fitness","Petshop","Belleza"]},
+  {date:"2026-07-28",name:"Fiestas Patrias (PE)",countries:["PE"],category:"civica",impact:"alto",description:"Independencia peruana. Feriado largo (28–29 jul). Máximo pico de orgullo nacional.",brand:"Ángulo de orgullo peruano. Cualquier vertical puede activar auténticamente.",sectors:["Retail","Alimentación","FMCG","Viajes","Travel","Fintech","B2B"]},
+  {date:"2026-08-10",name:"Independencia (EC)",countries:["EC"],category:"civica",impact:"alto",description:"Independencia de Quito. Feriado nacional. Alta identidad cultural ecuatoriana.",brand:"Contenido de orgullo nacional con ángulo local.",sectors:["Retail","Alimentación","FMCG","Fintech","B2B"]},
+  {date:"2026-08-25",name:"Independencia (UY)",countries:["UY"],category:"civica",impact:"alto",description:"Feriado uruguayo. Cultura más austera que otros mercados. Tono sofisticado.",brand:"Evitar exageraciones. Calidad de vida como ángulo.",sectors:["Retail","Fintech","FMCG"]},
+  {date:"2026-09-07",name:"Independencia (BR)",countries:["BR"],category:"civica",impact:"alto",description:"Feriado nacional brasileño. Evitar contenido político. Orgullo cultural funciona mejor.",brand:"Gastronomía, deporte y estilo de vida. Sin tono político.",sectors:["Retail","Alimentación","FMCG","Belleza","Cosméticos"]},
+  {date:"2026-09-15",name:"Fiestas Patrias (MX)",countries:["MX"],category:"civica",impact:"alto",description:"Las Fiestas Patrias más importantes (15–16 sep). El Grito la noche del 15. Altísimo consumo.",brand:"Activar desde el 10 de sept. Identidad mexicana funciona para cualquier vertical.",sectors:["Retail","FMCG","Gastronomía","Restaurantes","Moda","Electrónica","Telecom","Fintech","B2B"]},
+  {date:"2026-09-18",name:"Fiestas Patrias (CL)",countries:["CL"],category:"civica",impact:"alto",description:"Celebraciones más importantes del año en Chile (18–19 sep). Cueca, asados, fondas.",brand:"Activar desde el 14. Cualquier categoría puede conectar.",sectors:["Retail","Alimentación","FMCG","Bebidas","Ecommerce","Fintech","Seguros","Telecom"]},
+  {date:"2026-10-15",name:"Día de la Madre (AR)",countries:["AR"],category:"comercial",impact:"alto",description:"Tercer domingo de octubre. Fecha comercial más importante del segundo semestre en Argentina.",brand:"Journey completo: segmentación, teaser 3 semanas antes, recuperación de carrito.",sectors:["Retail","Ecommerce","Gastronomía","Restaurantes","Flores","Joyería","Electrónica","Fitness","Belleza","Petshop"]},
+  {date:"2026-10-31",name:"Halloween",countries:["MX","CO","CL","UY","EC","PE"],category:"cultural",impact:"medio",description:"Mayor penetración en México y Colombia. Creciendo en resto. Alto volumen de contenido y consumo.",brand:"Ángulo lúdico para casi cualquier marca. Evitar tono oscuro en fintech y salud.",sectors:["Retail","Ecommerce","Entretenimiento","Alimentación","FMCG","Moda","Telecom"]},
+  {date:"2026-11-02",name:"Día de Muertos / Finados",countries:["MX","EC","PE"],category:"cultural",impact:"alto",description:"México: Patrimonio UNESCO. Ecuador y Perú: raíces andinas (Finados). Alta sensibilidad cultural en ambos casos.",brand:"México: memoria y familia. Ecuador/Perú: tono solemne. Evitar comercialización excesiva.",sectors:["Floristerías","Alimentación","FMCG","Turismo","Travel","ONG"]},
+  {date:"2026-11-27",name:"Black Friday LATAM",countries:["BR","CO","AR","MX","CL","UY","EC","PE"],category:"comercial",impact:"alto",description:"La fecha de mayor volumen de e-commerce del año en LATAM. Preparación desde octubre es clave.",brand:"Journey: waitlist VIP (3 sem antes) → teaser → early access → D-day → carrito abandonado → Cyber Monday.",sectors:["Ecommerce","Retail","Electrónica","Moda","Viajes","Travel","Fintech","FMCG","Telecom","Belleza","Cosméticos","B2B","Seguros","Fitness"]},
+  {date:"2026-11-30",name:"Cyber Monday LATAM",countries:["BR","CO","AR","MX","CL","UY","EC","PE"],category:"comercial",impact:"alto",description:"Extensión digital del Black Friday. Alta conversión en electrónica, software y suscripciones.",brand:"Push y email de urgencia: 'Últimas horas'. Segmentar por abandono de carrito del viernes.",sectors:["Ecommerce","Electrónica","Software","Telecom","Suscripciones","Viajes","Travel","Moda","Fintech"]},
+  {date:"2026-12-08",name:"Inmaculada Concepción",countries:["CO","AR","CL","EC","PE"],category:"cultural",impact:"medio",description:"Feriado en varios países. En Colombia: inicio tradicional de la temporada navideña (alumbrados).",brand:"Colombia: activar inicio de campaña navideña. Otros: respeto religioso.",sectors:["Retail","FMCG","Entretenimiento","Turismo","Travel"]},
+  {date:"2026-12-12",name:"Virgen de Guadalupe (MX)",countries:["MX"],category:"cultural",impact:"alto",description:"La fecha religiosa más importante de México. 10M+ de devotos. Alta sensibilidad cultural.",brand:"Silencio comercial. Solo marcas con conexión auténtica pueden activar.",sectors:["ONG","Cultura","Turismo","Travel"]},
+  {date:"2026-12-24",name:"Nochebuena",countries:["BR","CO","AR","MX","CL","UY","EC","PE"],category:"cultural",impact:"alto",description:"Máxima unión familiar en LATAM. Ventas last-minute: delivery, flores, alimentos y regalos.",brand:"Urgencia de entrega, regalos last-minute, cenas. Tono emocional y cálido.",sectors:["Retail","Gastronomía","Restaurantes","Delivery","Flores","Viajes","Travel","FMCG","Ecommerce","Belleza","Petshop","Telecom"]},
+  {date:"2026-12-31",name:"Año Nuevo",countries:["BR","CO","AR","MX","CL","UY","EC","PE"],category:"cultural",impact:"alto",description:"Celebración universal. Rituales de renovación en LATAM: uvas, maletas, lentejas. Alto consumo.",brand:"Balance del año, metas 2027, rituales. Moda, viajes, bebidas y fitness tienen el mejor ángulo.",sectors:["Bebidas","FMCG","Moda","Viajes","Travel","Fitness","Retail","Ecommerce","Telecom","Belleza","Seguros"]}
 ];
 
-function countTrends(week) {
-  return week.sections.reduce((sum, s) => sum + s.trends.length, 0);
+const FLAGS={BR:"🇧🇷",CO:"🇨🇴",AR:"🇦🇷",MX:"🇲🇽",CL:"🇨🇱",UY:"🇺🇾",EC:"🇪🇨",PE:"🇵🇪"};
+const MONTHS=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+
+let F={country:"ALL",cat:"ALL",impact:"ALL",industry:"ALL",client:"ALL"};
+
+function toggleFilters(){
+  const b=document.getElementById("fBar"),btn=document.getElementById("fToggleBtn");
+  b.classList.toggle("open");
+  btn.textContent=b.classList.contains("open")?"Cerrar filtros ▴":"Abrir filtros ▾";
 }
-function renderTrend(t) {
-  return `<div class="trend"><div class="trend-name">${t.name}</div><div class="trend-fields"><div class="trend-field"><span class="lbl">Qué es</span><span class="val">${t.que_es}</span></div><div class="trend-field"><span class="lbl">Público</span><span class="val">${t.publico}</span></div><div class="trend-field"><span class="lbl">Para marca</span><span class="val">${t.para_marca}</span></div></div></div>`;
+function sf(type,val,el){
+  F[type]=val;
+  document.getElementById("fc-"+type).querySelectorAll(".filter-chip").forEach(b=>b.classList.remove("active","client-active"));
+  el.classList.add(type==="client"&&val!=="ALL"?"client-active":"active");
+  renderCal();
 }
-function renderSection(s, wid, isLatest) {
-  const sid = `s-${wid}-${s.id}`;
-  return `<div class="section"><div class="section-header" onclick="toggleSec('${sid}')"><div class="section-left"><span class="section-icon">${s.icon}</span><span class="section-title">${s.title}${s.subtitle ? ' <span style="color:#bbb;font-weight:400;font-size:11px">· ' + s.subtitle + '</span>' : ''}</span></div><div style="display:flex;align-items:center;gap:6px"><span class="section-pill">${s.trends.length}</span><svg class="section-chev${isLatest ? ' open' : ''}" id="sc-${sid}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="section-body${isLatest ? ' open' : ''}" id="sb-${sid}">${s.trends.map(renderTrend).join('')}</div></div>`;
+function clearFilters(){
+  F={country:"ALL",cat:"ALL",impact:"ALL",industry:"ALL",client:"ALL"};
+  ["country","cat","impact","industry","client"].forEach(t=>{
+    const chips=document.getElementById("fc-"+t).querySelectorAll(".filter-chip");
+    chips.forEach(c=>c.classList.remove("active","client-active"));
+    chips[0].classList.add("active");
+  });
+  renderCal();
 }
-function renderWeek(week, isLatest) {
-  const total = countTrends(week);
-  const wid = week.id;
-  return `<div class="week-block"><div class="week-header${isLatest ? ' latest' : ''}" onclick="toggleWeek('${wid}')"><div class="week-left"><div class="week-dot${isLatest ? '' : ' old'}"></div><span class="week-label${isLatest ? '' : ' old'}">${week.label}</span></div><div class="week-meta"><span class="pill${isLatest ? ' red' : ''}">${total} tendencias</span><svg class="chevron${isLatest ? ' open' : ''}" id="wc-${wid}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:${isLatest ? 'rgba(255,255,255,0.6)' : '#aaa'}"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="week-body${isLatest ? ' open' : ''}" id="wb-${wid}">${week.sections.map(s => renderSection(s, wid, isLatest)).join('')}</div></div>`;
+
+function renderCal(){
+  const root=document.getElementById("cal-root");
+  let ev=CALENDAR.filter(e=>{
+    if(F.country!=="ALL"&&!e.countries.includes(F.country))return false;
+    if(F.cat!=="ALL"&&e.category!==F.cat)return false;
+    if(F.impact!=="ALL"&&e.impact!==F.impact)return false;
+    if(F.industry!=="ALL"){const fn=IND[F.industry];const sL=e.sectors.map(s=>s.toLowerCase());if(!sL.some(s=>fn(s)))return false;}
+    if(F.client!=="ALL"){
+      const cl=CLIENTS[F.client];if(!cl)return false;
+      const cOk=e.countries.some(c=>cl.countries.includes(c));
+      const sL=e.sectors.map(s=>s.toLowerCase());
+      const iOk=cl.industry.some(ind=>IND[ind]&&sL.some(s=>IND[ind](s)));
+      if(!cOk||!iOk)return false;
+    }
+    return true;
+  }).sort((a,b)=>a.date.localeCompare(b.date));
+
+  const active=Object.entries(F).filter(([k,v])=>v!=="ALL");
+  const toolbar=document.getElementById("toolbar");
+  const pills=active.map(([k,v])=>`<span class="active-pill">${k}: ${v}<span class="x" onclick="sf('${k}','ALL',document.querySelector('#fc-${k} .filter-chip'))">×</span></span>`).join("");
+  toolbar.innerHTML=`${pills}<span class="results-count" id="rCount">${ev.length} fecha${ev.length!==1?"s":""}</span>`;
+  document.getElementById("fSummary").textContent=ev.length===CALENDAR.length?"Todos los eventos":`${ev.length} de ${CALENDAR.length}`;
+
+  if(!ev.length){root.innerHTML=`<div class="no-results">Sin fechas para los filtros seleccionados.<br><button onclick="clearFilters()" style="margin-top:12px;background:var(--black);color:#fff;border:none;padding:7px 16px;border-radius:20px;cursor:pointer;font-family:inherit;font-weight:600;font-size:12px">Limpiar filtros</button></div>`;return;}
+
+  const bm={};
+  ev.forEach(e=>{const m=parseInt(e.date.split("-")[1])-1;if(!bm[m])bm[m]=[];bm[m].push(e);});
+
+  root.innerHTML=Object.entries(bm).map(([mi,evs])=>{
+    const cards=evs.map(e=>{
+      const d=new Date(e.date+"T12:00:00");
+      const ds=d.toLocaleDateString("es-CO",{day:"numeric",month:"short"}).toUpperCase();
+      const fl=e.countries.map(c=>FLAGS[c]||"").join("");
+      const rc=getClients(e);
+      const cb=rc.slice(0,3).map(n=>`<span class="ctag">${CLIENTS[n].e} ${n.split(" ")[0]}</span>`).join("");
+      const cm=rc.length>3?`<span class="ctag">+${rc.length-3}</span>`:"";
+      const calIdx=CALENDAR.indexOf(e); const eid_x=e.date+"|"+ e.name.replace(/['"]/g,"");
+      return `<div class="cal-card" onclick="openM(${calIdx})"><div class="cal-accent ${e.category}"></div><div class="cal-inner"><div class="cal-top"><span class="cal-date">${ds}</span><span class="cal-impact impact-${e.impact}">${e.impact.toUpperCase()}</span></div><div class="cal-name">${e.name}</div><div class="cal-bottom"><span class="cal-flags">${fl}</span><span class="cal-cat cat-${e.category}">${e.category}</span></div>${rc.length?`<div class="cal-clients">${cb}${cm}</div>`:""}</div></div>`;
+    }).join("");
+    return `<div class="month-section"><div class="month-header"><span class="month-name">${MONTHS[parseInt(mi)]}</span><div class="month-line"></div><span class="month-count">${evs.length} fecha${evs.length!==1?"s":""}</span></div><div class="cal-grid">${cards}</div></div>`;
+  }).join("");
 }
-document.getElementById('root').innerHTML = WEEKS.map((w, i) => renderWeek(w, i === 0)).join('');
-function toggleWeek(wid) {
-  const body = document.getElementById('wb-' + wid);
-  const chev = document.getElementById('wc-' + wid);
-  const isOpen = body.classList.contains('open');
-  body.classList.toggle('open', !isOpen);
-  chev.classList.toggle('open', !isOpen);
+
+function genClientBriefs(clientNames, category) {
+  const catKey = ["comercial","cultural","civica","festividad"].includes(category) ? category : "cultural";
+  const badges = clientNames.map(n=>`<span class="mclient">${CLIENTS[n].e} ${n}</span>`).join("");
+  const briefs = clientNames.map(n => {
+    const cl = CLIENTS[n];
+    const act = cl.activations[catKey] || cl.activations["cultural"];
+    return `<div class="mclient-brief">
+      <div class="mclient-brief-header">
+        <span class="mclient-brief-name">${cl.e} ${n}</span>
+        <span class="mclient-brief-canal">${act.canal}</span>
+      </div>
+      <div class="mclient-brief-angulo">↗ ${act.angulo}</div>
+      <div class="mclient-brief-copy" onclick="navigator.clipboard&&navigator.clipboard.writeText(this.textContent.trim())" title="Click para copiar">${act.copy}</div>
+    </div>`;
+  }).join("");
+  return `<div class="mclients" style="margin-bottom:10px">${badges}</div>${briefs}`;
 }
-function toggleSec(sid) {
-  const body = document.getElementById('sb-' + sid);
-  const chev = document.getElementById('sc-' + sid);
-  const isOpen = body.classList.contains('open');
-  body.classList.toggle('open', !isOpen);
-  chev.classList.toggle('open', !isOpen);
+
+function openM(idx){
+  const e=CALENDAR[idx];
+  if(!e)return;
+  const rc=getClients(e);
+  const d=new Date(e.date+"T12:00:00");
+  const df=d.toLocaleDateString("es-CO",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+  const fl=e.countries.map(c=>FLAGS[c]||"").join(" ");
+  document.getElementById("mBar").className="modal-top-bar "+e.category;
+  document.getElementById("mTitle").textContent=e.name;
+  document.getElementById("mBody").innerHTML=`
+    <div class="mrow"><span class="mlabel">📅 Fecha</span><span style="font-size:12px;color:var(--t2)">${df}</span></div>
+    <div class="mrow"><span class="mlabel">🌍 Países</span><span style="font-size:16px;letter-spacing:2px">${fl}</span></div>
+    <div class="mrow"><span class="mlabel">📂 Tipo</span><span class="cal-cat cat-${e.category}" style="font-size:10px">${e.category}</span><span class="cal-impact impact-${e.impact}" style="font-size:9px;margin-left:6px">${e.impact.toUpperCase()}</span></div>
+    <div class="mdivider"></div>
+    <div class="msec">Contexto sociocultural</div>
+    <div class="mdesc">${e.description}</div>
+    <div class="msec">💡 Recomendación de marca</div>
+    <div class="mbrand"><p>${e.brand}</p></div>
+    <div class="msec">Sectores con oportunidad</div>
+    <div class="mchips">${e.sectors.map(s=>`<span class="mchip">${s}</span>`).join("")}</div>
+    <div class="mdivider"></div>
+    <div class="msec">Clientes Winclap relevantes</div>
+    ${rc.length
+      ?genClientBriefs(rc, e.category)
+      :`<p class="no-client-note">Ningún cliente activo tiene match directo de país + industria para esta fecha.</p>`}
+  `;
+  document.getElementById("mOverlay").classList.add("open");
+  document.body.style.overflow="hidden";
 }
+function closeMO(e){if(e.target===document.getElementById("mOverlay"))closeM();}
+function closeM(){document.getElementById("mOverlay").classList.remove("open");document.body.style.overflow="";}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeM();});
+
+function showTab(id,btn){
+  document.querySelectorAll(".tab-content").forEach(el=>el.classList.remove("active"));
+  document.querySelectorAll(".tab-btn").forEach(el=>el.classList.remove("active"));
+  document.getElementById("tab-"+id).classList.add("active");
+  btn.classList.add("active");
+  if(id==="calendar")renderCal();
+}
+
+const WEEKS=[{
+  "id": "2026-05-04",
+  "label": "Semana del 4 de mayo 2026",
+  "finance": [
+    {
+      "name": "Quincena LATAM — pago del 15 de mayo (próximo viernes)",
+      "countries": [
+        "CO",
+        "MX",
+        "AR",
+        "CL",
+        "PE",
+        "EC"
+      ],
+      "type": "ciclo",
+      "why": "El 15-may cae viernes y concentra el mayor pico de pago de nómina del mes en 6 países LATAM. Los días 14–16 generan el peak de transacciones en wallets, e-commerce y delivery.",
+      "action": "Pre-warm de listas esta semana. Push 14-may PM y 15-may 12–15h. Segmentar por activación histórica del 15 del mes anterior.",
+      "sources": [
+        {
+          "title": "Bancolombia — Calendario de pagos",
+          "url": "https://www.grupobancolombia.com/"
+        },
+        {
+          "title": "AMVO — Comportamiento e-commerce LATAM",
+          "url": "https://www.amvo.org.mx/"
+        }
+      ]
+    },
+    {
+      "name": "Mês das Mães Brasil — peak de gasto a 6 días vista",
+      "countries": [
+        "BR"
+      ],
+      "type": "pago",
+      "why": "10-may es Dia das Mães, segunda fecha comercial más importante de BR. Búsqueda de regalos venía +68% YoY a fines de abril. Esta semana es la ventana de conversión final.",
+      "action": "Push y email diarios hasta el 9-may con bundles + envío garantizado. Ventana de remarketing de carrito el 8–9 con urgencia de delivery.",
+      "sources": [
+        {
+          "title": "Ebit Nielsen — E-commerce BR",
+          "url": "https://www.ebit.com.br/"
+        },
+        {
+          "title": "Google Trends BR — Dia das Mães",
+          "url": "https://trends.google.com/trends/explore?geo=BR&q=dia+das+m%C3%A3es"
+        }
+      ]
+    },
+    {
+      "name": "Dólar blue Argentina — estabilidad post 1 de mayo",
+      "countries": [
+        "AR"
+      ],
+      "type": "fx",
+      "why": "Blue cerró el 1-may a $1.380/$1.400 con variación marginal y -9,29% YTD. Mínimo de 2026 fue $1.390 el 8-abr. Estabilidad reduce urgencia de mensajes de cobertura, pero sí abre 'tu dinero rinde más'.",
+      "action": "Pausar copys con tono de pánico cambiario. Activar narrativa de estabilidad en cuotas, ahorro programado y promociones en pesos.",
+      "sources": [
+        {
+          "title": "Dolarito — Cotización dólar informal 2026",
+          "url": "https://www.dolarito.ar/cotizaciones-historicas/dolar/informal/2026/cotizacion-historica-del-dolar-informal-a%C3%B1o-2026"
+        },
+        {
+          "title": "El Cronista — Dólar blue 1-may",
+          "url": "https://www.cronista.com/finanzas-mercados/cotizacion-del-dolar-blue-cual-es-el-precio-de-este-viernes-1-de-mayo/"
+        }
+      ]
+    },
+    {
+      "name": "Pago de utilidades México (PTU) — deadline 30 de mayo",
+      "countries": [
+        "MX"
+      ],
+      "type": "pago",
+      "why": "Personas Morales tienen hasta el 30-may para pagar reparto de utilidades. Genera ingreso extraordinario para millones de trabajadores formales. Pico de gasto discrecional típico en las 2 semanas posteriores al cobro.",
+      "action": "Construir base de leads esta semana para journeys de conversión segunda quincena de mayo. Categorías ganadoras: travel, electrónica, viajes cortos, fintech (inversión).",
+      "sources": [
+        {
+          "title": "PROFEDET — Reparto de utilidades",
+          "url": "https://www.gob.mx/profedet"
+        }
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "id": "transversal",
+      "icon": "✨",
+      "title": "Transversales",
+      "subtitle": "Todos los países",
+      "subgroups": [
+        {
+          "id": "cultura-pop",
+          "label": "🎬 Cultura Pop",
+          "color": "#F3EEFF",
+          "colorText": "#6B4DB8",
+          "trends": [
+            {
+              "name": "Día de las Madres LATAM — peak comercial del primer semestre",
+              "why": "10-may en BR y 11-may (primer domingo) en CO, CL, EC, PE, UY. Es la fecha comercial #1 del primer semestre en 6 de los 8 mercados. Búsquedas y carritos abandonados al máximo esta semana.",
+              "pub": "25–55",
+              "brand": "Journeys de conversión finales (D-7 a D-1) con bundles de regalo + envío garantizado. Carrito abandonado con urgencia de delivery los días 8–9.",
+              "tags": [
+                {
+                  "t": "Push",
+                  "c": "channel"
+                },
+                {
+                  "t": "Email",
+                  "c": "channel"
+                },
+                {
+                  "t": "Storytelling",
+                  "c": "format"
+                },
+                {
+                  "t": "Retail",
+                  "c": "brand"
+                },
+                {
+                  "t": "Beauty",
+                  "c": "brand"
+                }
+              ],
+              "sources": [
+                {
+                  "title": "Google Trends — Día de las Madres LATAM",
+                  "url": "https://trends.google.com/trends/explore?geo=419&q=d%C3%ADa+de+las+madres"
+                }
+              ]
+            },
+            {
+              "name": "UEFA Champions League — semifinales y final 30-may en Budapest",
+              "why": "PSG, Atlético, Arsenal y Bayern definen finalistas esta semana. Final el 30-may en Puskás Aréna. PSG-Bayern del 28-abr (5-4) sigue siendo el match más comentado del torneo. Audiencia masculina 18–55 transversal LATAM.",
+              "pub": "18–55, mayormente masculino",
+              "brand": "Ventana de live-content y reactivos durante semifinales. Construir activaciones de mid-funnel para final del 30-may.",
+              "tags": [
+                {
+                  "t": "Push",
+                  "c": "channel"
+                },
+                {
+                  "t": "In-app",
+                  "c": "channel"
+                },
+                {
+                  "t": "Live content",
+                  "c": "format"
+                },
+                {
+                  "t": "Reels",
+                  "c": "format"
+                }
+              ],
+              "sources": [
+                {
+                  "title": "UEFA — Champions League 2025/26",
+                  "url": "https://es.uefa.com/uefachampionsleague/"
+                }
+              ]
+            },
+            {
+              "name": "Copa Libertadores — fecha 4 esta semana (5–7 mayo)",
+              "why": "Fase de grupos en momento decisivo. Flamengo, Boca, Palmeiras, Liga de Quito, Independiente del Valle como cabezas de serie. Conversación pico cada miércoles y jueves de doble jornada.",
+              "pub": "18–55, mayormente masculino",
+              "brand": "Reels de gol, reacciones de hincha, y formatos 'tu equipo' en Stories. Marcas locales de cerveza, FMCG y telecom tienen ventana orgánica.",
+              "tags": [
+                {
+                  "t": "Push",
+                  "c": "channel"
+                },
+                {
+                  "t": "Live content",
+                  "c": "format"
+                },
+                {
+                  "t": "Reels",
+                  "c": "format"
+                },
+                {
+                  "t": "FMCG",
+                  "c": "brand"
+                }
+              ],
+              "sources": [
+                {
+                  "title": "ESPN — Libertadores 2026 fixture",
+                  "url": "https://espndeportes.espn.com/futbol/copa-libertadores/nota/_/id/16478031/libertadores-2026-fixture-horarios-resultados-y-tv-en-vivo"
+                }
+              ]
+            },
+            {
+              "name": "Mundial 2026 — listas oficiales el 30 de mayo",
+              "why": "Faltan 38 días para el inicio (11-jun). Scaloni, Ancelotti y Lorenzo cierran listas el 30-may. Estudios proyectan +30% en categorías como cerveza, botanas y refrescos durante el torneo. Ventana de pre-anticipación máxima ahora.",
+              "pub": "16–55",
+              "brand": "Countdown en redes, predicciones de plantel, branding de marca-país. FMCG, retail, telecom y fintech con ventana de afiliación temprana al evento.",
+              "tags": [
+                {
+                  "t": "Push",
+                  "c": "channel"
+                },
+                {
+                  "t": "Email",
+                  "c": "channel"
+                },
+                {
+                  "t": "Storytelling",
+                  "c": "format"
+                },
+                {
+                  "t": "Live content",
+                  "c": "format"
+                },
+                {
+                  "t": "FMCG",
+                  "c": "brand"
+                }
+              ],
+              "sources": [
+                {
+                  "title": "FIFA — Mundial 2026",
+                  "url": "https://www.fifa.com/es/tournaments//mens/worldcup/canadamexicousa2026/"
+                },
+                {
+                  "title": "Teamcore — Retail LATAM y Mundial",
+                  "url": "https://www.teamcore.com/us/blog/como-el-mundial-2026-esta-cambiando-la-ejecucion-en-retail-en-latam/"
+                }
+              ]
+            },
+            {
+              "name": "Mortal Kombat II — estreno en cines LATAM",
+              "why": "Secuela de la franquicia con audiencia gamer transversal. Conversación pre-estreno alta en TikTok y X con clips de combates icónicos. Audiencia 16–34 cross-país.",
+              "pub": "16–34, mayormente masculino",
+              "brand": "Reels y Shorts con audios de combate; activaciones gamer-friendly para FMCG, telecom y fintech con audiencia joven.",
+              "tags": [
+                {
+                  "t": "Reels",
+                  "c": "format"
+                },
+                {
+                  "t": "TikTok",
+                  "c": "format"
+                },
+                {
+                  "t": "UGC",
+                  "c": "format"
+                }
+              ],
+              "sources": [
+                {
+                  "title": "CNN — Estrenos mayo 2026",
+                  "url": "https://cnnespanol.cnn.com/2026/05/01/entretenimiento/estrenos-mayo-2026-netflix-hbo-disney-orix"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "tendencia-digital",
+          "label": "📡 Tendencia Digital",
+          "color": "#EBF7FF",
+          "colorText": "#2A7AB5",
+          "trends": [
+            {
+              "name": "TikTok Next 2026 — 'Dosis de Realidad' como vector ganador",
+              "why": "El reporte oficial de TikTok identifica 'Dosis de Realidad' como el primero de 3 grandes ejes 2026. Audiencias dejan atrás simulación: contenido sin filtros, BTS, voces reales. #lockedin (648K), #hygiene (692K), #joblife (235K) consolidan la tendencia.",
+              "pub": "16–40",
+              "brand": "Cambiar producción aspiracional por video conversacional: cámara frontal, sin guion, gente real del equipo. Aplica para todas las categorías.",
+              "tags": [
+                {
+                  "t": "In-app",
+                  "c": "channel"
+                },
+                {
+                  "t": "TikTok",
+                  "c": "format"
+                },
+                {
+                  "t": "Reels",
+                  "c": "format"
+                },
+                {
+                  "t": "UGC",
+                  "c": "format"
+                }
+              ],
+              "sources": [
+                {
+                  "title": "TikTok Newsroom — Next Report 2026 LATAM",
+                  "url": "https://newsroom.tiktok.com/tiktok-next-report-2026-latam?lang=es-419"
+                }
+              ]
+            },
+            {
+              "name": "Caída del alcance medio: comunidades de nicho > viralidad masiva",
+              "why": "Reportes 2026 confirman saturación de feeds y caída del alcance medio por publicación. Audiencias de nicho, espacios privados y suscripciones generan engagement más estable que la viralidad amplia.",
+              "pub": "25–55",
+              "brand": "Migrar parte del esfuerzo a comunidades cerradas (WhatsApp, Discord, broadcast lists) y a creators de 10K–100K seguidores con CTR 3x mayor.",
+              "tags": [
+                {
+                  "t": "WhatsApp",
+                  "c": "channel"
+                },
+                {
+                  "t": "Email",
+                  "c": "channel"
+                },
+                {
+                  "t": "UGC",
+                  "c": "format"
+                }
+              ],
+              "sources": [
+                {
+                  "title": "IAB México — Post-tendencias redes 2026",
+                  "url": "https://www.iabmexico.com/notas-de-industria/las-post-tendencias-que-redefinen-las-redes-sociales-en-2026/"
+                }
+              ]
+            },
+            {
+              "name": "Sensibilidad anti-IA: marcas humanas > marcas perfectas",
+              "why": "Saturación de contenido AI-generated activa rechazo de audiencias hacia lo demasiado pulido. Voces reales, historias verificables y procesos imperfectos están ganando trust y conversión.",
+              "pub": "20–45",
+              "brand": "Bajar producción de creatividades AI para top-funnel. Subir presencia de empleados, clientes reales y testimonios sin guion en CRM.",
+              "tags": [
+                {
+                  "t": "Email",
+                  "c": "channel"
+                },
+                {
+                  "t": "Storytelling",
+                  "c": "format"
+                },
+                {
+                  "t": "UGC",
+                  "c": "format"
+                }
+              ],
+              "sources": [
+                {
+                  "title": "WordPress — Tendencias redes sociales 2026",
+                  "url": "https://wordpress.com/es/blog/2026/01/12/tendencias-de-redes-sociales/"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "br",
+      "icon": "🇧🇷",
+      "title": "Brasil",
+      "subtitle": "",
+      "subgroups": [
+        {
+          "id": "br-cultura",
+          "label": "🎬 Cultura Pop",
+          "color": "#F3EEFF",
+          "colorText": "#6B4DB8",
+          "trends": [
+            {
+              "name": "Passinho do Jamal — viral con jugadores de fútbol BR",
+              "why": "Mini-coreografía dominando TikTok y Reels BR esta semana. Jugadores como Enciso y Alisson Santos compartiendo sus versiones después de goles. Cruce orgánico cultura pop + fútbol.",
+              "pub": "16–35",
+              "brand": "Sumarse al passinho con team interno o atletas patrocinados. Costo de producción muy bajo, alto match con audiencias jóvenes brasileñas.",
+              "tags": [
+                {
+                  "t": "Reels",
+                  "c": "format"
+                },
+                {
+                  "t": "TikTok",
+                  "c": "format"
+                },
+                {
+                  "t": "UGC",
+                  "c": "format"
+                }
+              ],
+              "sources": [
+                {
+                  "title": "TikTok Discover — Trends Brasil",
+                  "url": "https://www.tiktok.com/discover/trend-brasile%C3%B1o-2026-virales"
+                }
+              ]
+            },
+            {
+              "name": "Dia das Mães — peak comercial del semestre",
+              "why": "10-may, segunda fecha comercial más importante de BR. Búsquedas anticipadas +68% YoY en abril. Categorías ganadoras: belleza, joyería, gastronomía, retail.",
+              "pub": "30–60",
+              "brand": "Última semana de conversión: bundles de regalo, envío express, recuperación de carrito con urgencia de delivery del 8–9.",
+              "tags": [
+                {
+                  "t": "Push",
+                  "c": "channel"
+                },
+                {
+                  "t": "Email",
+                  "c": "channel"
+                },
+                {
+                  "t": "Storytelling",
+                  "c": "format"
+                },
+                {
+                  "t": "Retail",
+                  "c": "brand"
+                },
+                {
+                  "t": "Beauty",
+                  "c": "brand"
+                }
+              ],
+              "sources": [
+                {
+                  "title": "Google Trends BR — Dia das Mães",
+                  "url": "https://trends.google.com/trends/explore?geo=BR&q=dia+das+m%C3%A3es"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "br-digital",
+          "label": "📡 Tendencia Digital",
+          "color": "#EBF7FF",
+          "colorText": "#2A7AB5",
+          "trends": [
+            {
+              "name": "PIX y carteras digitales en máximos de uso para Dia das Mães",
+              "why": "Brasil es líder en pagos instantáneos. PIX absorbe la mayoría de transacciones de regalos digitales y delivery. Wallets aumentan operaciones la semana de Dia das Mães.",
+              "pub": "20–55",
+              "brand": "Fintechs y wallets pueden activar cashback de Dia das Mães y gift cards digitales. Retail debe priorizar PIX como medio de pago en checkout.",
+              "tags": [
+                {
+                  "t": "Push",
+                  "c": "channel"
+                },
+                {
+                  "t": "In-app",
+                  "c": "channel"
+                },
+                {
+                  "t": "Fintech",
+                  "c": "brand"
+                },
+                {
+                  "t": "Retail",
+                  "c": "brand"
+                }
+              ],
+              "sources": [
+                {
+                  "title": "Banco Central do Brasil — Estatísticas PIX",
+                  "url": "https://www.bcb.gov.br/estabilidadefinanceira/pix"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "co",
+      "icon": "🇨🇴",
+      "title": "Colombia",
+      "subtitle": "",
+      "subgroups": [
+        {
+          "id": "co-cultura",
+          "label": "🎬 Cultura Pop",
+          "color": "#F3EEFF",
+          "colorText": "#6B4DB8",
+          "trends": [
+            {
+              "name": "Día de las Madres CO — primer domingo (11-may)",
+              "why": "Fecha comercial #1 del primer semestre en CO. Restaurantes, flores, joyería, gastronomía y belleza al tope. Esta es la última semana antes del peak.",
+              "pub": "30–60",
+              "brand": "Push y email los días 8–10 con bundles familiares y opciones de delivery. Restaurantes con reservas anticipadas pueden activar broadcast WhatsApp.",
+              "tags": [
+                {
+                  "t": "Push",
+                  "c": "channel"
+                },
+                {
+                  "t": "WhatsApp",
+                  "c": "channel"
+                },
+                {
+                  "t": "Storytelling",
+                  "c": "format"
+                },
+                {
+                  "t": "Retail",
+                  "c": "brand"
+                },
+                {
+                  "t": "Beauty",
+                  "c": "brand"
+                }
+              ],
+              "sources": [
+                {
+                  "title": "FENALCO — Calendario comercial Colombia",
+                  "url": "https://www.fenalco.com.co/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "co-digital",
+          "label": "📡 Tendencia Digital",
+          "color": "#EBF7FF",
+          "colorText": "#2A7AB5",
+          "trends": [
+            {
+              "name": "Quincena CO + ciclo de cobro fin/inicio mes",
+              "why": "El 30-abr pasó la quincena del mes y el 15-may activa la del próximo. La ventana 14–17 mayo concentra el mayor pico de gasto discrecional en Colombia.",
+              "pub": "25–50",
+              "brand": "Construir audiencias para el 14–16. Wallets, retail y fintech tienen ventana específica con journeys segmentados por nivel de ingreso.",
+              "tags": [
+                {
+                  "t": "Push",
+                  "c": "channel"
+                },
+                {
+                  "t": "SMS",
+                  "c": "channel"
+                },
+                {
+                  "t": "Fintech",
+                  "c": "brand"
+                },
+                {
+                  "t": "Retail",
+                  "c": "brand"
+                }
+              ],
+              "sources": [
+                {
+                  "title": "Superfinanciera — Informe pagos",
+                  "url": "https://www.superfinanciera.gov.co/"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ar",
+      "icon": "🇦🇷",
+      "title": "Argentina",
+      "subtitle": "",
+      "subgroups": [
+        {
+          "id": "ar-cultura",
+          "label": "🎬 Cultura Pop",
+          "color": "#F3EEFF",
+          "colorText": "#6B4DB8",
+          "trends": [
+            {
+              "name": "Día de la Patria 25-may — anticipación a 3 semanas",
+              "why": "Feriado nacional argentino. Identidad nacional muy presente; descuentos triviales generan backlash. Es momento de construir narrativa con anticipación.",
+              "pub": "Todos",
+              "brand": "Iniciar warm-up de narrativa patria sin promociones agresivas. Marcas con herencia argentina o Made-in-AR tienen mejor ángulo.",
+              "tags": [
+                {
+                  "t": "Email",
+                  "c": "channel"
+                },
+                {
+                  "t": "Push",
+                  "c": "channel"
+                },
+                {
+                  "t": "Storytelling",
+                  "c": "format"
+                },
+                {
+                  "t": "Retail",
+                  "c": "brand"
+                },
+                {
+                  "t": "FMCG",
+                  "c": "brand"
+                }
+              ],
+              "sources": [
+                {
+                  "title": "Cultura.AR — Calendario fechas patrias",
+                  "url": "https://www.cultura.gob.ar/"
+                }
+              ]
+            },
+            {
+              "name": "Trend de Messi by Cami Rdz — coreografía viral en TikTok AR",
+              "why": "Coreografía con pasos cortos y rebote dominando Reels y TikTok en AR. Bajo costo de producción, alta participación de creators medianos.",
+              "pub": "15–30",
+              "brand": "Versión con producto o equipo interno. Marcas FMCG y telecom con audiencia joven argentina pueden adoptar el formato sin sentirse forzadas.",
+              "tags": [
+                {
+                  "t": "Reels",
+                  "c": "format"
+                },
+                {
+                  "t": "TikTok",
+                  "c": "format"
+                },
+                {
+                  "t": "UGC",
+                  "c": "format"
+                }
+              ],
+              "sources": [
+                {
+                  "title": "TikTok Discover — Argentina trends",
+                  "url": "https://www.tiktok.com/discover/argentina-trends"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ar-digital",
+          "label": "📡 Tendencia Digital",
+          "color": "#EBF7FF",
+          "colorText": "#2A7AB5",
+          "trends": [
+            {
+              "name": "Dólar blue estable: ventana para 'tu dinero rinde más'",
+              "why": "Blue cerró 1-may a $1.380/$1.400 con variación marginal. -9,29% YTD. Estabilidad reduce ansiedad cambiaria y abre oportunidad de copys de ahorro y cuotas.",
+              "pub": "25–55",
+              "brand": "Pausar narrativa de pánico. Activar mensajes de cuotas sin interés, ahorro programado y cashback en pesos. Fintech, retail y travel ganan.",
+              "tags": [
+                {
+                  "t": "Push",
+                  "c": "channel"
+                },
+                {
+                  "t": "Email",
+                  "c": "channel"
+                },
+                {
+                  "t": "Fintech",
+                  "c": "brand"
+                },
+                {
+                  "t": "Retail",
+                  "c": "brand"
+                }
+              ],
+              "sources": [
+                {
+                  "title": "Dolarito — Cotización dólar 2026",
+                  "url": "https://www.dolarito.ar/cotizaciones-historicas/dolar/informal/2026/cotizacion-historica-del-dolar-informal-a%C3%B1o-2026"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mx",
+      "icon": "🇲🇽",
+      "title": "México",
+      "subtitle": "",
+      "subgroups": [
+        {
+          "id": "mx-cultura",
+          "label": "🎬 Cultura Pop",
+          "color": "#F3EEFF",
+          "colorText": "#6B4DB8",
+          "trends": [
+            {
+              "name": "J Balvin gira mayo MX — CDMX 14-may, GDL 17-may, MTY 20-may",
+              "why": "Tres fechas en Palacio de los Deportes y arenas regionales. Conversación pre-concierto activa esta semana en redes mexicanas. Audiencia 18–35 paneando regional/urbano.",
+              "pub": "18–35",
+              "brand": "Reels con repertorio actual, polls de canciones favoritas, activaciones cross con marcas locales con audiencia GenZ urbana.",
+              "tags": [
+                {
+                  "t": "Reels",
+                  "c": "format"
+                },
+                {
+                  "t": "Stories",
+                  "c": "format"
+                },
+                {
+                  "t": "UGC",
+                  "c": "format"
+                }
+              ],
+              "sources": [
+                {
+                  "title": "Sonica — Conciertos CDMX mayo 2026",
+                  "url": "https://sonica.mx/eventos/2026/04/30/conciertos-de-mayo-2026-en-cdmx-artistas-fechas-y-recintos-104420.html"
+                }
+              ]
+            },
+            {
+              "name": "'Balenciaga' — El Malilla & Luis R Conriquez viral en TikTok MX",
+              "why": "Regional mexicano cruzado con urbano. Audio dominando challenges en TikTok MX con millones de interacciones. Cross-generational entre 16 y 35.",
+              "pub": "16–35",
+              "brand": "Audio orgánico para Reels y Shorts con producto. Funciona en cualquier categoría con audiencia mexicana.",
+              "tags": [
+                {
+                  "t": "TikTok",
+                  "c": "format"
+                },
+                {
+                  "t": "Reels",
+                  "c": "format"
+                },
+                {
+                  "t": "UGC",
+                  "c": "format"
+                }
+              ],
+              "sources": [
+                {
+                  "title": "TikTok Creative Center — Trending MX",
+                  "url": "https://ads.tiktok.com/business/creativecenter/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "mx-digital",
+          "label": "📡 Tendencia Digital",
+          "color": "#EBF7FF",
+          "colorText": "#2A7AB5",
+          "trends": [
+            {
+              "name": "Pago de utilidades (PTU) — base para journeys de mayo–junio",
+              "why": "Empresas con régimen de Personas Morales pagan PTU hasta 30-may. Genera ingreso extraordinario en millones de trabajadores formales. Categorías ganadoras: travel, electrónica, fintech (inversión, BNPL).",
+              "pub": "25–55",
+              "brand": "Construir audiencias esta semana. Activar journeys de conversión la segunda quincena de mayo con segmentación por sector laboral.",
+              "tags": [
+                {
+                  "t": "Push",
+                  "c": "channel"
+                },
+                {
+                  "t": "Email",
+                  "c": "channel"
+                },
+                {
+                  "t": "Travel",
+                  "c": "brand"
+                },
+                {
+                  "t": "Fintech",
+                  "c": "brand"
+                }
+              ],
+              "sources": [
+                {
+                  "title": "PROFEDET — Reparto de utilidades",
+                  "url": "https://www.gob.mx/profedet"
+                }
+              ]
+            },
+            {
+              "name": "Brand safety: elecciones judiciales MX el 1 de junio",
+              "why": "Conversación polarizada en redes mexicanas las próximas 4 semanas. Eventual ruido de marca para campañas masivas en la jornada electoral.",
+              "pub": "Todos",
+              "brand": "Auditar copys con tono cívico. Pausar pauta agresiva el 31-may y 1-jun. Separar creatividades infantiles de cualquier referencia política.",
+              "tags": [
+                {
+                  "t": "Email",
+                  "c": "channel"
+                }
+              ],
+              "sources": [
+                {
+                  "title": "INE México — Elecciones 2026",
+                  "url": "https://www.ine.mx/"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cl",
+      "icon": "🇨🇱",
+      "title": "Chile",
+      "subtitle": "",
+      "subgroups": [
+        {
+          "id": "cl-cultura",
+          "label": "🎬 Cultura Pop",
+          "color": "#F3EEFF",
+          "colorText": "#6B4DB8",
+          "trends": [
+            {
+              "name": "Día de las Madres CL — primer domingo (11-may)",
+              "why": "Fecha comercial fuerte en Chile. Restaurantes, retail, belleza y delivery con peak. Última semana de conversión.",
+              "pub": "30–60",
+              "brand": "Bundles familiares + delivery garantizado. Restaurantes pueden activar reservas anticipadas vía WhatsApp y push.",
+              "tags": [
+                {
+                  "t": "Push",
+                  "c": "channel"
+                },
+                {
+                  "t": "WhatsApp",
+                  "c": "channel"
+                },
+                {
+                  "t": "Retail",
+                  "c": "brand"
+                },
+                {
+                  "t": "Beauty",
+                  "c": "brand"
+                }
+              ],
+              "sources": [
+                {
+                  "title": "CamCom Chile — Calendario comercial",
+                  "url": "https://www.camcom.cl/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cl-digital",
+          "label": "📡 Tendencia Digital",
+          "color": "#EBF7FF",
+          "colorText": "#2A7AB5",
+          "trends": [
+            {
+              "name": "CyberDay Chile (1–3 jun) — warm-up crítico de listas",
+              "why": "Mayor evento de e-commerce de Chile a 4 semanas. Marcas que preparan base, segmentación y deliverability esta semana ganan ventaja real en CTR durante el evento.",
+              "pub": "25–55",
+              "brand": "Cleaning de listas, re-confirmación de opt-in, journeys de teaser desde la semana del 12-may. Activar early-access para top spenders.",
+              "tags": [
+                {
+                  "t": "Email",
+                  "c": "channel"
+                },
+                {
+                  "t": "Push",
+                  "c": "channel"
+                },
+                {
+                  "t": "Retail",
+                  "c": "brand"
+                }
+              ],
+              "sources": [
+                {
+                  "title": "CamCom Chile — CyberDay",
+                  "url": "https://www.camcom.cl/"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "uy",
+      "icon": "🇺🇾",
+      "title": "Uruguay",
+      "subtitle": "",
+      "subgroups": [
+        {
+          "id": "uy-cultura",
+          "label": "🎬 Cultura Pop",
+          "color": "#F3EEFF",
+          "colorText": "#6B4DB8",
+          "trends": [
+            {
+              "name": "Día de la Madre UY — primer domingo (11-may)",
+              "why": "Fecha comercial relevante en Uruguay. Tono más austero que el resto de LATAM; campañas demasiado emocionales o exageradas pueden perder credibilidad.",
+              "pub": "30–60",
+              "brand": "Mensajes de calidad, simplicidad y tradición. Bundles modestos con énfasis en producto, no en descuentos masivos.",
+              "tags": [
+                {
+                  "t": "Email",
+                  "c": "channel"
+                },
+                {
+                  "t": "Storytelling",
+                  "c": "format"
+                },
+                {
+                  "t": "Retail",
+                  "c": "brand"
+                }
+              ],
+              "sources": [
+                {
+                  "title": "Cámara de Comercio UY",
+                  "url": "https://www.cncs.com.uy/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "uy-digital",
+          "label": "📡 Tendencia Digital",
+          "color": "#EBF7FF",
+          "colorText": "#2A7AB5",
+          "trends": []
+        }
+      ]
+    },
+    {
+      "id": "ec",
+      "icon": "🇪🇨",
+      "title": "Ecuador",
+      "subtitle": "",
+      "subgroups": [
+        {
+          "id": "ec-cultura",
+          "label": "🎬 Cultura Pop",
+          "color": "#F3EEFF",
+          "colorText": "#6B4DB8",
+          "trends": [
+            {
+              "name": "Día de la Madre EC — primer domingo (11-may)",
+              "why": "Fecha comercial más fuerte del primer semestre en Ecuador. Búsquedas de regalos y delivery suben esta semana.",
+              "pub": "30–60",
+              "brand": "Push y WhatsApp con bundles + delivery local. Categorías ganadoras: belleza, gastronomía, joyería, retail.",
+              "tags": [
+                {
+                  "t": "Push",
+                  "c": "channel"
+                },
+                {
+                  "t": "WhatsApp",
+                  "c": "channel"
+                },
+                {
+                  "t": "Retail",
+                  "c": "brand"
+                },
+                {
+                  "t": "Beauty",
+                  "c": "brand"
+                }
+              ],
+              "sources": [
+                {
+                  "title": "INEC Ecuador — Indicadores comercio",
+                  "url": "https://www.ecuadorencifras.gob.ec/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ec-digital",
+          "label": "📡 Tendencia Digital",
+          "color": "#EBF7FF",
+          "colorText": "#2A7AB5",
+          "trends": []
+        }
+      ]
+    },
+    {
+      "id": "pe",
+      "icon": "🇵🇪",
+      "title": "Perú",
+      "subtitle": "",
+      "subgroups": [
+        {
+          "id": "pe-cultura",
+          "label": "🎬 Cultura Pop",
+          "color": "#F3EEFF",
+          "colorText": "#6B4DB8",
+          "trends": [
+            {
+              "name": "Día de la Madre PE — primer domingo (11-may)",
+              "why": "Fecha comercial número 1 del primer semestre en Perú. Restaurantes, gastronomía, belleza y retail al tope.",
+              "pub": "30–60",
+              "brand": "Activar bundles de regalo + reservas en gastronomía con WhatsApp. Última semana de conversión final.",
+              "tags": [
+                {
+                  "t": "Push",
+                  "c": "channel"
+                },
+                {
+                  "t": "WhatsApp",
+                  "c": "channel"
+                },
+                {
+                  "t": "Retail",
+                  "c": "brand"
+                },
+                {
+                  "t": "Beauty",
+                  "c": "brand"
+                }
+              ],
+              "sources": [
+                {
+                  "title": "CCL Perú — Calendario comercial",
+                  "url": "https://www.camaralima.org.pe/"
+                }
+              ]
+            },
+            {
+              "name": "Sporting Cristal lidera Grupo F — Libertadores activa",
+              "why": "Tras la fecha 3, Sporting Cristal lidera su grupo. Esta semana es la fecha 4 (5–7 may). Conversación de hinchada peruana en peak.",
+              "pub": "18–55, mayormente masculino",
+              "brand": "Activaciones con audiencia futbolera local: cervezas, bebidas, gastronomía y telecom. Live content y reactivos en jornada de partidos.",
+              "tags": [
+                {
+                  "t": "Push",
+                  "c": "channel"
+                },
+                {
+                  "t": "Live content",
+                  "c": "format"
+                },
+                {
+                  "t": "FMCG",
+                  "c": "brand"
+                }
+              ],
+              "sources": [
+                {
+                  "title": "Infobae Perú — Libertadores Grupo F",
+                  "url": "https://www.infobae.com/peru/deportes/2026/04/28/tabla-de-posiciones-grupo-f-copa-libertadores-2026-sporting-cristal-junior-cerro-porteno-palmeiras-fecha-3/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "pe-digital",
+          "label": "📡 Tendencia Digital",
+          "color": "#EBF7FF",
+          "colorText": "#2A7AB5",
+          "trends": [
+            {
+              "name": "Yape vs Plin — competencia en peak para Día de la Madre",
+              "why": "Las wallets dominantes de Perú activan cashback y bonificaciones cruzadas anticipando el peak de transacciones del 9–11 mayo. DAU creciendo en ambas plataformas.",
+              "pub": "20–45",
+              "brand": "Fintechs no dominantes pueden activar cashback diferencial en categorías específicas. Retail debe priorizar ambas wallets en checkout.",
+              "tags": [
+                {
+                  "t": "Push",
+                  "c": "channel"
+                },
+                {
+                  "t": "In-app",
+                  "c": "channel"
+                },
+                {
+                  "t": "Fintech",
+                  "c": "brand"
+                }
+              ],
+              "sources": [
+                {
+                  "title": "BCRP — Sistema de pagos Perú",
+                  "url": "https://www.bcrp.gob.pe/"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+},{id:"2026-04-28",label:"Semana del 28 de abril 2026",
+  finance:[
+    {name:"Quincena LATAM — pago del 15 de mayo",countries:["CO","MX","AR","CL","PE","EC"],type:"ciclo",why:"El 15 de mayo es fecha de pago de nómina para millones de trabajadores. Genera pico de transacciones en wallets, compras online y servicios financieros en las 48h siguientes.",action:"Programar campañas de conversión para el 14–16. Push en horario 12pm–3pm del día 15. Segmentar usuarios activos en esas fechas del mes anterior.",sources:[{title:"Bancolombia — Calendario de pagos",url:"https://www.grupobancolombia.com/"},{title:"AMVO — Comportamiento de pago LATAM",url:"https://www.amvo.org.mx/"}]},
+    {name:"Dólar blue Argentina — monitoreo semanal",countries:["AR"],type:"fx",why:"El tipo de cambio paralelo impacta directamente el poder de compra. Esta semana el blue cerró en zona de estabilidad relativa post-feriado. Variaciones >3% modifican comportamiento de compra inmediato.",action:"Revisar variación antes de enviar cualquier campaña en AR. Si subió: urgencia de precio en pesos. Si bajó: 'tu dinero rinde más ahora'. Segmentar por sensibilidad histórica al tipo de cambio.",sources:[{title:"Ámbito Financiero — Dólar hoy",url:"https://www.ambito.com/economia/dolar/informacion-general/noticias/2024/01/02/dolar-hoy-tipo-de-cambio-peso-argentino"},{title:"Infobae — Dólar blue",url:"https://www.infobae.com/economia/2024/01/02/dolar-blue-hoy/"}]}
+  ],
+  sections:[
+  {id:"transversal",icon:"✨",title:"Transversales",subtitle:"Todos los países",
+    subgroups:[
+      {id:"cultura-pop",label:"🎬 Cultura Pop",color:"#F3EEFF",colorText:"#6B4DB8",trends:[
+        {name:"El Diablo Viste de Prada 2 — estreno Disney+",why:"La secuela con Meryl Streep y Anne Hathaway estrenó el 1 de mayo. El tráiler tuvo 222M de views en 24hs — el más visto en la historia del estudio. Moda, estética y poder femenino dominan la conversación esta semana.",tags:[{t:"Reels",c:"format"},{t:"Stories",c:"format"},{t:"Moda",c:"brand"},{t:"Beauty",c:"brand"}],sources:[{title:"Disney+ — El Diablo Viste de Prada 2",url:"https://www.disneyplus.com/"},{title:"Variety — Trailer record views",url:"https://variety.com/"}]},
+        {name:"Euphoria T3 — HBO Max, cap. 4 este domingo",why:"Tercera temporada activa desde el 12/04. Rosalía en el cast. Serie #1 en streaming global. Pico de conversación cada domingo post-episodio. Público 18–30, cultura pop y estética.",tags:[{t:"Push",c:"channel"},{t:"In-app",c:"channel"},{t:"Reels",c:"format"}],sources:[{title:"HBO Max — Euphoria Season 3",url:"https://www.max.com/"},{title:"Nielsen Streaming — Rankings semana",url:"https://www.nielsen.com/solutions/audience-measurement/streaming/"}]},
+        {name:"Él y ella — fenómeno global Netflix 2026",why:"Primera serie en convertirse en fenómeno global de Netflix 2026 con 65M de visualizaciones. Público 25–45, romance y drama. Tono emocional muy fuerte para marcas lifestyle y de relaciones.",tags:[{t:"Email",c:"channel"},{t:"Push",c:"channel"},{t:"Storytelling",c:"format"}],sources:[{title:"Netflix Top 10 — Semana global",url:"https://www.netflix.com/tudum/top10"}]},
+        {name:"Coachella 2026 — afterglow activo",why:"Karol G headlineó como primera latina, junto a Justin Bieber y Sabrina Carpenter. La conversación post-festival sigue activa. Looks y momentos icónicos generan contenido de 'mis favoritos'.",tags:[{t:"Reels",c:"format"},{t:"UGC",c:"format"},{t:"Moda",c:"brand"},{t:"Beauty",c:"brand"}],sources:[{title:"Billboard — Coachella 2026 recap",url:"https://www.billboard.com/"},{title:"Instagram — #Coachella2026",url:"https://www.instagram.com/explore/tags/coachella2026/"}]},
+        {name:"TikTok Bounce Challenge — viral LATAM",why:"Mini coreografía con pasos cortos y rebote dominando Reels y TikTok en toda LATAM esta semana. Público 15–30. Muy bajo costo de producción — hacer versión con producto o equipo.",tags:[{t:"Reels",c:"format"},{t:"TikTok",c:"format"},{t:"UGC",c:"format"}],sources:[{title:"TikTok Creative Center — Trending sounds",url:"https://ads.tiktok.com/business/creativecenter/"}]},
+        {name:"Mundial 2026 — ventana de anticipación máxima",why:"Arranca el 11 de junio en México, EE.UU. y Canadá. Grupos ya confirmados para todos los países. Ventana de anticipación más grande del semestre — predicciones, '¿cómo te preparás?', countdowns.",tags:[{t:"Push",c:"channel"},{t:"Email",c:"channel"},{t:"Live content",c:"format"}],sources:[{title:"FIFA — Mundial 2026 oficial",url:"https://www.fifa.com/fifaplus/es/tournaments/mens/worldcup/canadamexicousa2026"},{title:"CONMEBOL — Equipos clasificados",url:"https://www.conmebol.com/"}]},
+        {name:"PSG 5-4 Bayern Munich — Champions League",why:"Semifinal del 28/04 con 9 goles, una de las mejores de la historia. Segundo leg este miércoles en Munich. Formatos de reacción y '¿remonta Bayern?' tienen tracción máxima.",tags:[{t:"Push",c:"channel"},{t:"Live content",c:"format"},{t:"Reels",c:"format"}],sources:[{title:"UEFA — Champions League semifinal",url:"https://www.uefa.com/uefachampionsleague/"}]},
+        {name:"Michael — biopic MJ arrasa en cines",why:"Debutó con $217M en su primer fin de semana, el mayor debut de un biopic musical de la historia. Público 18–55 transversal. Iconografía y música de MJ tienen tracción total — funciona en cualquier categoría.",tags:[{t:"Push",c:"channel"},{t:"Email",c:"channel"},{t:"Reels",c:"format"}],sources:[{title:"Box Office Mojo — Michael (2025)",url:"https://www.boxofficemojo.com/"},{title:"Variety — Michael biopic opening weekend",url:"https://variety.com/"}]}
+      ]},
+      {id:"tendencia-digital",label:"📡 Tendencia Digital",color:"#EBF7FF",colorText:"#2A7AB5",trends:[
+        {name:"IA generativa en el consumidor masivo",why:"Adopción acelerada de ChatGPT y Gemini entre usuarios no tech. Oportunidad para marcas de democratizar sus servicios con asistentes conversacionales.",tags:[{t:"WhatsApp",c:"channel"},{t:"In-app",c:"channel"},{t:"Tutorial",c:"format"}],sources:[{title:"Reuters — AI adoption Latin America",url:"https://www.reuters.com/technology/"},{title:"Statista — AI users LATAM 2025",url:"https://www.statista.com/topics/11418/artificial-intelligence-ai-in-latin-america/"}]},
+        {name:"Micro-influencers de nicho superan en conversión",why:"CTR 3x mayor con creadores de 10K–100K vs mega-influencers. Autenticidad sigue siendo el driver principal.",tags:[{t:"Email",c:"channel"},{t:"UGC",c:"format"}],sources:[{title:"HubSpot — Influencer Marketing Report 2025",url:"https://www.hubspot.com/marketing-statistics"},{title:"Later — Micro-influencer benchmarks",url:"https://later.com/blog/influencer-marketing-statistics/"}]},
+        {name:"Economía del cuidado personal en expansión",why:"Selfcare, salud mental y bienestar dominan búsquedas en Google Trends LATAM. Suplementos, fitness digital, skincare.",tags:[{t:"Push",c:"channel"},{t:"Video corto",c:"format"}],sources:[{title:"Google Trends — Bienestar LATAM",url:"https://trends.google.com/trends/explore?geo=419&q=bienestar"},{title:"Euromonitor — Beauty & Personal Care LATAM",url:"https://www.euromonitor.com/beauty-and-personal-care-in-latin-america/report"}]},
+        {name:"Nostalgia como palanca emocional",why:"Referencias a los 90s y 2000s generan alto engagement. Aplica para Millennials y Gen X.",tags:[{t:"SMS",c:"channel"},{t:"Storytelling",c:"format"}],sources:[{title:"Think with Google — Nostalgia marketing",url:"https://www.thinkwithgoogle.com/"}]},
+        {name:"Pagos digitales como nuevo estándar",why:"QR, wallets y BNPL superan al efectivo en 5 de los 8 mercados. Urgencia para fintechs y retail.",tags:[{t:"Push",c:"channel"},{t:"Fintech",c:"brand"}],sources:[{title:"EBANX — Pagos digitales LATAM 2025",url:"https://ebanx.com/resources/beyond-borders/"},{title:"Americas Market Intelligence — Fintech LATAM",url:"https://americasmi.com/"}]},
+        {name:"Audio y podcasts escalan en consumo móvil",why:"+40% YoY en consumo de podcast en LATAM. Ideal para educar y fidelizar.",tags:[{t:"Email",c:"channel"},{t:"Podcast",c:"format"}],sources:[{title:"Spotify — Podcast Trends LATAM",url:"https://spotifyadvertisinglatam.com/"},{title:"IAB — Audio digital LATAM 2025",url:"https://iabmexico.com/"}]}
+      ]}
+    ]},
+  {id:"br",icon:"🇧🇷",title:"Brasil",subtitle:"",
+    subgroups:[
+      {id:"br-cultura",label:"🎬 Cultura Pop",color:"#F3EEFF",colorText:"#6B4DB8",trends:[
+        {name:"Funk Brasileiro viral en TikTok BR",pub:"16–35",brand:"Usar audios de funk como fondo de Reels — bajo costo, alta resonancia local.",why:"El funk carioca domina TikTok BR esta semana con baile do baile y beats locales.",tags:[{t:"Reels",c:"format"},{t:"UGC",c:"format"}],sources:[{title:"TikTok Creative Center — Trending BR",url:"https://ads.tiktok.com/business/creativecenter/"}]},
+        {name:"Ronaldinho: Miniserie lidera Netflix Brasil",pub:"18–50",brand:"Nostalgia futbolera y orgullo nacional — fuerte para marcas con audiencia deportiva.",why:"Miniserie que lideró el ranking de Netflix en Brasil esta semana.",tags:[{t:"Reels",c:"format"},{t:"Storytelling",c:"format"}],sources:[{title:"Netflix Top 10 Brasil",url:"https://www.netflix.com/tudum/top10"}]}
+      ]},
+      {id:"br-digital",label:"📡 Tendencia Digital",color:"#EBF7FF",colorText:"#2A7AB5",trends:[
+        {name:"Mês das Mães — Anticipación de compras",pub:"25–55",brand:"Journey anticipado desde el 25 de abril. Segmentar por historial de compra y LTV.",why:"Día de las Madres el 10 de mayo. Búsquedas de regalos subieron 68% en la última semana.",tags:[{t:"Retail",c:"brand"},{t:"Beauty",c:"brand"}],sources:[{title:"Google Trends BR — Día das Mães",url:"https://trends.google.com/trends/explore?geo=BR&q=dia+das+m%C3%A3es"},{title:"Ebit Nielsen — E-commerce BR",url:"https://www.ebit.com.br/"}]},
+        {name:"Nubank supera 100M de clientes",pub:"18–45",brand:"Oportunidad para fintechs de posicionarse en la misma conversación de inclusión financiera.",why:"El hito viralizó en medios tech y financieros. Genera conversación sobre bancarización.",tags:[{t:"Fintech",c:"brand"},{t:"Thought leadership",c:"format"}],sources:[{title:"Nubank IR — Resultados Q1 2026",url:"https://ir.nu.com.br/"}]}
+      ]}
+    ]},
+  {id:"co",icon:"🇨🇴",title:"Colombia",subtitle:"",
+    subgroups:[
+      {id:"co-cultura",label:"🎬 Cultura Pop",color:"#F3EEFF",colorText:"#6B4DB8",trends:[
+        {name:"Orgullo colombiano por Karol G en Coachella",pub:"18–35",brand:"Tono de identidad colombiana: 'lo que Colombia le da al mundo'. Muy orgánico.",why:"Su histórico headlining como primera latina genera conversación de orgullo nacional en redes CO.",tags:[{t:"Reels",c:"format"},{t:"UGC",c:"format"}],sources:[{title:"Billboard — Karol G Coachella 2026",url:"https://www.billboard.com/"}]},
+        {name:"Perfil Falso T3 — Netflix top 3 global",pub:"25–50",brand:"Formatos de '¿en qué capítulo estás?' o referencias al suspenso funcionan muy bien en CO.",why:"Telenovela colombiana con 3M de views en la semana del 20–26 de abril. Top 3 global Netflix.",tags:[{t:"Reels",c:"format"},{t:"Storytelling",c:"format"}],sources:[{title:"Netflix Top 10 — Semana global",url:"https://www.netflix.com/tudum/top10"}]}
+      ]},
+      {id:"co-digital",label:"📡 Tendencia Digital",color:"#EBF7FF",colorText:"#2A7AB5",trends:[
+        {name:"Ciclo de recaudo fin de mes",pub:"25–50",brand:"Momento crítico para fintechs y apps de pago. Activar journeys de conversión el 30 de abril.",why:"Último día de abril activa búsquedas de pagos y créditos en Colombia.",tags:[{t:"Fintech",c:"brand"}],sources:[{title:"Superfinanciera — Informe mensual pagos",url:"https://www.superfinanciera.gov.co/"}]},
+        {name:"Festival Estéreo Picnic — resaca cultural",pub:"20–38",brand:"Contenido de comunidad y resumen de experiencias — marcas de bebidas y moda tienen ventana.",why:"Post-festival, el contenido de comunidad sigue viralizando en redes CO.",tags:[{t:"UGC",c:"format"}],sources:[{title:"Estéreo Picnic — Web oficial",url:"https://www.stereeopicnic.com/"}]}
+      ]}
+    ]},
+  {id:"ar",icon:"🇦🇷",title:"Argentina",subtitle:"",
+    subgroups:[
+      {id:"ar-cultura",label:"🎬 Cultura Pop",color:"#F3EEFF",colorText:"#6B4DB8",trends:[
+        {name:"Argentina en el Mundial — Grupo J confirmado",pub:"18–55",brand:"Anticipación del torneo, apoyo a la selección y predicciones del grupo. Funciona en cualquier categoría.",why:"Argentina vs Argelia, Jordania y Austria. Conversación muy activa sobre el camino al título.",tags:[{t:"Reels",c:"format"},{t:"Live content",c:"format"}],sources:[{title:"FIFA — Grupos Mundial 2026",url:"https://www.fifa.com/fifaplus/es/tournaments/mens/worldcup/canadamexicousa2026"}]},
+        {name:"Harry Styles 'Kiss All the Time' — viral en Reels AR",pub:"18–35, mayormente femenino",brand:"Audio ideal para transiciones de producto, lifestyle o 'antes/después'.",why:"Single con millones de likes en contenido de la región esta semana.",tags:[{t:"Reels",c:"format"},{t:"Stories",c:"format"}],sources:[{title:"Spotify — Charts Argentina",url:"https://charts.spotify.com/charts/overview/ar"}]}
+      ]},
+      {id:"ar-digital",label:"📡 Tendencia Digital",color:"#EBF7FF",colorText:"#2A7AB5",trends:[
+        {name:"Inflación y precio como filtro de compra",pub:"25–55",brand:"Mensajes de ahorro, cashback y cuotas sin interés tienen conversión alta en AR.",why:"78% de consumidores argentinos compara precios antes de comprar cualquier producto.",tags:[{t:"Retail",c:"brand"},{t:"Fintech",c:"brand"}],sources:[{title:"INDEC — IPC Argentina",url:"https://www.indec.gob.ar/indec/web/Nivel4-Tema-3-5-31"},{title:"CAME — Consumo retail Argentina",url:"https://www.redcame.org.ar/"}]},
+        {name:"Gaming y e-sports en expansión",pub:"18–30, masculino",brand:"Oportunidad cross-vertical para marcas que buscan GenZ masculino argentino.",why:"3er mercado gamer de LATAM. DAU en crecimiento sostenido.",tags:[{t:"Gaming",c:"brand"}],sources:[{title:"Newzoo — LATAM Gaming Report",url:"https://newzoo.com/resources/trending/latam-games-market/"}]}
+      ]}
+    ]},
+  {id:"mx",icon:"🇲🇽",title:"México",subtitle:"",
+    subgroups:[
+      {id:"mx-cultura",label:"🎬 Cultura Pop",color:"#F3EEFF",colorText:"#6B4DB8",trends:[
+        {name:"México sede del Mundial — máxima conversación",pub:"18–55",brand:"Oportunidad más grande del semestre. Countdown, orgullo local, activaciones pre-torneo.",why:"Partido inaugural México vs Sudáfrica en el Azteca el 11/06. País en modo Mundial.",tags:[{t:"Reels",c:"format"},{t:"Live content",c:"format"}],sources:[{title:"FIFA — Mundial 2026 México",url:"https://www.fifa.com/fifaplus/es/tournaments/mens/worldcup/canadamexicousa2026"}]},
+        {name:"J Balvin en gira — mayo en MX",pub:"18–35",brand:"Contenido de anticipación para fans. Hook con su repertorio actual.",why:"Conciertos el 14, 17 y 20 de mayo en CDMX, Guadalajara y Monterrey.",tags:[{t:"Reels",c:"format"},{t:"Stories",c:"format"}],sources:[{title:"Ticketmaster MX — J Balvin 2026",url:"https://www.ticketmaster.com.mx/"}]},
+        {name:"'Balenciaga' El Malilla & Luis R Conriquez — viral TikTok MX",pub:"16–35",brand:"Audio natural para cualquier Reel; muy familiar para la audiencia local.",why:"Regional mexicano viral en TikTok MX con millones de interacciones en challenges.",tags:[{t:"TikTok",c:"format"},{t:"UGC",c:"format"}],sources:[{title:"TikTok Creative Center — Trending MX",url:"https://ads.tiktok.com/business/creativecenter/"}]}
+      ]},
+      {id:"mx-digital",label:"📡 Tendencia Digital",color:"#EBF7FF",colorText:"#2A7AB5",trends:[
+        {name:"Puente largo del 1 de mayo — viajes",pub:"25–50",brand:"Búsquedas de viajes y experiencias suben la semana anterior. Ventana de conversión activa.",why:"El 1 de mayo genera uno de los puentes más importantes del año en México.",tags:[{t:"Travel",c:"brand"}],sources:[{title:"SECTUR México — Estadísticas turismo",url:"https://www.datatur.sectur.gob.mx/"}]},
+        {name:"Elecciones judiciales — brand safety",pub:"Todos",brand:"Revisar creatividades con lenguaje cívico. Evitar el 1 de junio para campañas de alto volumen.",why:"Conversación polarizada en redes. El 1 de junio son las elecciones al Poder Judicial.",tags:[{t:"Brand safety",c:"format"}],sources:[{title:"INE México — Elecciones 2026",url:"https://www.ine.mx/"}]},
+        {name:"Remesas digitales en máximos históricos",pub:"25–50",brand:"Wallets digitales tienen el mayor momento de relevancia del año. Activar ahora.",why:"Récord de remesas a México en Q1 2026. Wallets y apps de transferencia al tope.",tags:[{t:"Fintech",c:"brand"}],sources:[{title:"Banco de México — Remesas Q1 2026",url:"https://www.banxico.org.mx/publicaciones-y-prensa/remesas/remesas.html"}]}
+      ]}
+    ]},
+  {id:"cl",icon:"🇨🇱",title:"Chile",subtitle:"",
+    subgroups:[
+      {id:"cl-cultura",label:"🎬 Cultura Pop",color:"#F3EEFF",colorText:"#6B4DB8",trends:[
+        {name:"PSG vs Bayern — segundo leg Champions",pub:"20–45",brand:"Anticipación al partido de vuelta en Munich. Formatos de reacción y predicción.",why:"Chile tiene uno de los seguimientos más altos de fútbol europeo en LATAM. PSG-Bayern fue trending.",tags:[{t:"Live content",c:"format"},{t:"Reels",c:"format"}],sources:[{title:"UEFA — Champions League",url:"https://www.uefa.com/uefachampionsleague/"}]},
+        {name:"Ed Sheeran LOOP Tour — Lima 20 mayo",pub:"18–40",brand:"Música de Ed Sheeran como audio de Reels. Ángulo de 'próximamente en nuestra región'.",why:"El concierto en Lima genera conversación anticipada en redes chilenas esta semana.",tags:[{t:"Reels",c:"format"},{t:"Stories",c:"format"}],sources:[{title:"Spotify — Ed Sheeran LOOP Tour",url:"https://www.spotify.com/"}]}
+      ]},
+      {id:"cl-digital",label:"📡 Tendencia Digital",color:"#EBF7FF",colorText:"#2A7AB5",trends:[
+        {name:"CyberDay Chile — preparación de base",pub:"25–55",brand:"Trabajar lista, segmentación y warm-up ahora para mejor deliverability en junio.",why:"CyberDay el 1–3 junio. Las marcas que preparan su base hoy tienen ventaja real.",tags:[{t:"Ecommerce",c:"brand"}],sources:[{title:"CamCom Chile — CyberDay 2025 resultados",url:"https://www.camcom.cl/"}]},
+        {name:"Salud mental en agenda pública",pub:"20–45",brand:"Marcas de bienestar, seguros y fintech pueden conectar con ángulo de tranquilidad.",why:"Ministerio de Salud lanzó campaña nacional de bienestar mental esta semana.",tags:[{t:"Seguros",c:"brand"},{t:"Fintech",c:"brand"}],sources:[{title:"MINSAL Chile — Campaña bienestar mental",url:"https://www.minsal.cl/"}]}
+      ]}
+    ]},
+  {id:"uy",icon:"🇺🇾",title:"Uruguay",subtitle:"",
+    subgroups:[
+      {id:"uy-cultura",label:"🎬 Cultura Pop",color:"#F3EEFF",colorText:"#6B4DB8",trends:[
+        {name:"Turismo interno — reactivación post verano",pub:"25–50",brand:"Plataformas de escapadas y experiencias tienen ventana de remarketing activa esta semana.",why:"Post-verano, búsquedas de escapadas de fin de semana suben en UY.",tags:[{t:"Travel",c:"brand"}],sources:[{title:"Ministerio de Turismo Uruguay",url:"https://turismo.gub.uy/"}]}
+      ]},
+      {id:"uy-digital",label:"📡 Tendencia Digital",color:"#EBF7FF",colorText:"#2A7AB5",trends:[
+        {name:"Economía digital: liderazgo silencioso de LATAM",pub:"25–55",brand:"Base ideal para mensajes de upsell y cross-sell sofisticados. Tono premium.",why:"+85% bancarización digital. Uruguay lidera inclusión financiera en LATAM.",tags:[{t:"Fintech",c:"brand"}],sources:[{title:"BCU — Inclusión financiera Uruguay",url:"https://www.bcu.gub.uy/"},{title:"AGESIC — Digitalización Uruguay",url:"https://www.gub.uy/agencia-gobierno-electronico-sociedad-informacion-conocimiento/"}]}
+      ]}
+    ]},
+  {id:"ec",icon:"🇪🇨",title:"Ecuador",subtitle:"",
+    subgroups:[
+      {id:"ec-cultura",label:"🎬 Cultura Pop",color:"#F3EEFF",colorText:"#6B4DB8",trends:[
+        {name:"E-commerce informal en crecimiento",pub:"20–45",brand:"Marcas que educan sobre compra segura digital tienen alto engagement en EC.",why:"WhatsApp y Facebook Marketplace dominan las ventas online en Ecuador.",tags:[{t:"UGC",c:"format"}],sources:[{title:"CECE Ecuador — E-commerce report",url:"https://cece.ec/"}]}
+      ]},
+      {id:"ec-digital",label:"📡 Tendencia Digital",color:"#EBF7FF",colorText:"#2A7AB5",trends:[
+        {name:"Dolarización como argumento diferencial",pub:"25–55",brand:"Mensajes de estabilidad en USD tienen resonancia única en EC. Sin riesgo cambiario.",why:"Único país dolarizado de LATAM continental. Genera confianza financiera innata.",tags:[{t:"Fintech",c:"brand"}],sources:[{title:"BCE — Estadísticas dolarización Ecuador",url:"https://www.bce.fin.ec/"}]}
+      ]}
+    ]},
+  {id:"pe",icon:"🇵🇪",title:"Perú",subtitle:"",
+    subgroups:[
+      {id:"pe-cultura",label:"🎬 Cultura Pop",color:"#F3EEFF",colorText:"#6B4DB8",trends:[
+        {name:"Gastronomía peruana como identidad digital",pub:"18–50",brand:"FMCG, delivery y fintech pueden conectar auténticamente con el orgullo culinario peruano.",why:"El orgullo culinario peruano genera contenido orgánico constante en redes PE.",tags:[{t:"Storytelling",c:"format"},{t:"FMCG",c:"brand"}],sources:[{title:"PromPerú — Gastronomía como marca país",url:"https://www.peru.travel/es/sobre-peru/gastronomia"},{title:"Apega — Semana Gastronómica",url:"https://www.apega.pe/"}]}
+      ]},
+      {id:"pe-digital",label:"📡 Tendencia Digital",color:"#EBF7FF",colorText:"#2A7AB5",trends:[
+        {name:"Yape vs Plin — guerra de wallets en punto álgido",pub:"20–45",brand:"Oportunidad para terceros de posicionarse en cashback diferencial o nichos desatendidos.",why:"La competencia entre Yape y Plin satura el mercado. DAU creciendo en ambas apps.",tags:[{t:"Fintech",c:"brand"}],sources:[{title:"BCRP — Sistema de pagos Perú",url:"https://www.bcrp.gob.pe/"},{title:"SBS Perú — Inclusión financiera",url:"https://www.sbs.gob.pe/"}]}
+      ]}
+    ]}
+]}];
+
+function toggleWeek(wid){document.getElementById("week-"+wid).classList.toggle("open")}
+function toggleSec(sid){document.getElementById("sec-"+sid).classList.toggle("open")}
+function toggleSubgroup(sid){document.getElementById("sg-"+sid).classList.toggle("open")}
+function toggleFinance(wid){document.getElementById("fin-"+wid).classList.toggle("open")}
+function toggleSources(uid){
+  const list=document.getElementById("src-"+uid);
+  const btn=document.getElementById("srcbtn-"+uid);
+  if(!list||!btn)return;
+  list.classList.toggle("open");
+  btn.textContent=list.classList.contains("open")?"▴ ocultar fuentes":"▾ ver fuentes";
+}
+
+// ── Trends filters state ──────────────────────────────────────────────────────
+let TF = {country:"ALL", cat:"ALL", channel:"ALL", client:"ALL"};
+
+function toggleTFilters(){
+  const b=document.getElementById("tfBar"), btn=document.getElementById("tfToggleBtn");
+  b.classList.toggle("open");
+  btn.textContent = b.classList.contains("open") ? "Cerrar filtros ▴" : "Abrir filtros ▾";
+}
+function stf(type, val, el){
+  TF[type] = val;
+  document.getElementById("tfc-"+type).querySelectorAll(".filter-chip").forEach(b=>b.classList.remove("active","client-active"));
+  el.classList.add(type==="client" && val!=="ALL" ? "client-active" : "active");
+  renderTrends();
+}
+function clearTFilters(){
+  TF = {country:"ALL", cat:"ALL", channel:"ALL", client:"ALL"};
+  ["country","cat","channel","client"].forEach(t=>{
+    const chips = document.getElementById("tfc-"+t).querySelectorAll(".filter-chip");
+    chips.forEach(c=>c.classList.remove("active","client-active"));
+    chips[0].classList.add("active");
+  });
+  renderTrends();
+}
+
+// ── Client industry match for trends ─────────────────────────────────────────
+function trendMatchesClient(t, clientName) {
+  if (clientName === "ALL") return true;
+  const cl = CLIENTS[clientName];
+  if (!cl) return true;
+  // match by tag brand or channel overlap with client industry
+  const tagValues = (t.tags||[]).map(tg=>tg.t.toLowerCase());
+  const indKeywords = {
+    fastfood:["gastro","restaur","comida","food","fmcg","delivery","aliment"],
+    restaurantes:["gastro","restaur","comida","food","delivery"],
+    fintech:["fintech","financ","seguro","banco","wallet","pago","remesa"],
+    ecommerce:["retail","ecommerce","moda","electr","compras","b2b"],
+    travel:["viaje","travel","turismo"],
+    fitness:["fitness","deporte","salud","bienestar"],
+    beauty:["bellez","cosmet","skincare","estetic","moda"],
+    retail:["retail","moda","electr"],
+    petshop:["mascot","pet","animal"],
+    telecom:["telecom","tech","digital","celular"],
+    seguros:["seguro","auto"],
+    ong:["ong","educ","cultura","social"],
+    b2b:["b2b","comercio"]
+  };
+  const why = (t.why||"").toLowerCase() + " " + (t.name||"").toLowerCase();
+  return cl.industry.some(ind => {
+    const kws = indKeywords[ind] || [];
+    return kws.some(k => why.includes(k) || tagValues.some(tv=>tv.includes(k)));
+  });
+}
+
+// ── Trend render helper ───────────────────────────────────────────────────────
+function renderTrendItem(t, i, sid) {
+  const uid = sid+"-"+i;
+  // Only show non-channel tags (format + brand)
+  const visibleTags = (t.tags||[]).filter(tg => tg.c !== "channel");
+  const tagsHtml = visibleTags.length > 0
+    ? `<div class="trend-tags">${visibleTags.map(tg=>`<span class="tag ${tg.c}">${tg.t}</span>`).join("")}</div>`
+    : "";
+  const pubHtml = t.pub ? `<div class="trend-meta-row"><span class="trend-meta-label">PÚBLICO</span><span class="trend-meta-val">${t.pub}</span></div>` : "";
+  const brandHtml = t.brand ? `<div class="trend-meta-row"><span class="trend-meta-label">PARA MARCA</span><span class="trend-meta-val">${t.brand}</span></div>` : "";
+  const srcHtml = (t.sources||[]).length > 0
+    ? `<div class="trend-sources"><button class="sources-toggle" id="srcbtn-${uid}" onclick="toggleSources('${uid}')">▾ ver fuentes</button><div class="sources-list" id="src-${uid}">${(t.sources||[]).map((s,si)=>`<div class="source-item"><span class="source-num">[${si+1}]</span><a class="source-link" href="${s.url}" target="_blank" rel="noopener">${s.title}</a></div>`).join("")}</div></div>`
+    : "";
+  return `<div class="trend-item">
+    <div class="trend-num">${String(i+1).padStart(2,"0")}</div>
+    <div class="trend-content">
+      <div class="trend-name">${t.name}</div>
+      <div class="trend-why">${t.why}</div>
+      ${pubHtml}${brandHtml}
+      ${tagsHtml}
+      ${srcHtml}
+    </div>
+  </div>`;
+}
+
+// ── Filter a list of trends ───────────────────────────────────────────────────
+function filterTrends(trends) {
+  return trends.filter(t => {
+    if (TF.channel !== "ALL") {
+      const hasChannel = (t.tags||[]).some(tg=>tg.c==="channel" && tg.t===TF.channel);
+      if (!hasChannel) return false;
+    }
+    if (!trendMatchesClient(t, TF.client)) return false;
+    return true;
+  });
+}
+
+// ── Main render ───────────────────────────────────────────────────────────────
+function renderTrends(){
+  const root = document.getElementById("root");
+
+  // update filter summary
+  const active = Object.entries(TF).filter(([k,v])=>v!=="ALL");
+  document.getElementById("tfSummary").textContent =
+    active.length === 0 ? "Todas las tendencias" : active.map(([k,v])=>v).join(" · ");
+
+  root.innerHTML = WEEKS.map(week => {
+    const fin = week.finance || [];
+
+    // Finance block
+    const finHtml = fin.length === 0 ? "" : `
+      <div class="finance-section" id="fin-${week.id}">
+        <div class="finance-header" onclick="toggleFinance('${week.id}')">
+          <span class="finance-icon">💹</span>
+          <span class="finance-title">Radar Financiero</span>
+          <span class="finance-count">${fin.length} señal${fin.length!==1?"es":""}</span>
+          <span class="finance-chevron">▼</span>
+        </div>
+        <div class="finance-body">
+          ${fin.map((f,fi)=>{
+            const typeLabels={pago:"Pago/prestación",fx:"Tipo de cambio",alerta:"Alerta",ciclo:"Ciclo nómina"};
+            const flags2=(f.countries||[]).map(c=>({BR:"🇧🇷",CO:"🇨🇴",AR:"🇦🇷",MX:"🇲🇽",CL:"🇨🇱",UY:"🇺🇾",EC:"🇪🇨",PE:"🇵🇪"}[c]||"")).join(" ");
+            const srcHtml=(f.sources||[]).length>0?`<div class="trend-sources" style="margin-top:6px"><button class="sources-toggle" id="srcbtn-fin-${week.id}-${fi}" onclick="toggleSources('fin-${week.id}-${fi}')">▾ ver fuentes</button><div class="sources-list" id="src-fin-${week.id}-${fi}">${(f.sources||[]).map((s,si)=>`<div class="source-item"><span class="source-num">[${si+1}]</span><a class="source-link" href="${s.url}" target="_blank" rel="noopener">${s.title}</a></div>`).join("")}</div></div>`:"";
+            return `<div class="finance-item">
+              <div class="finance-item-top"><span class="finance-name">${f.name}</span><span class="finance-type ftype-${f.type||"ciclo"}">${typeLabels[f.type]||f.type}</span></div>
+              <div style="font-size:13px;margin-bottom:3px">${flags2}</div>
+              <div class="finance-why">${f.why}</div>
+              <div class="finance-action">💡 ${f.action}</div>
+              ${srcHtml}
+            </div>`;
+          }).join("")}
+        </div>
+      </div>`;
+
+    // Sections
+    const secsHtml = week.sections.map(sec => {
+      // Country filter
+      if (TF.country !== "ALL") {
+        if (sec.id === "transversal" && TF.country !== "transversal") {
+          // transversal shows when country=ALL or country=transversal
+          if (TF.country !== "transversal") return "";
+        } else if (sec.id !== "transversal" && sec.id !== TF.country.toLowerCase() && TF.country !== "transversal") {
+          return "";
+        }
+      }
+
+      // Transversal: subgroups
+      if (sec.subgroups) {
+        const subgroupsHtml = sec.subgroups.map(sg => {
+          // Category filter
+          if (TF.cat !== "ALL" && TF.cat !== "pais" && sg.id !== TF.cat) return "";
+          const filtered = filterTrends(sg.trends);
+          if (filtered.length === 0) return "";
+          const itemsHtml = filtered.map((t,i) => renderTrendItem(t, i, sg.id)).join("");
+          return `<div class="subgroup open" id="sg-${sg.id}">
+            <div class="subgroup-header" style="background:${sg.color}" onclick="toggleSubgroup('${sg.id}')">
+              <span class="subgroup-label" style="color:${sg.colorText}">${sg.label}</span>
+              <span class="subgroup-count" style="background:${sg.colorText};color:#fff">${filtered.length}</span>
+              <span class="subgroup-chevron" style="color:${sg.colorText}">▼</span>
+            </div>
+            <div class="subgroup-body">${itemsHtml}</div>
+          </div>`;
+        }).filter(Boolean).join("");
+
+        if (!subgroupsHtml) return "";
+        const totalCount = sec.subgroups.reduce((s,sg)=>s+filterTrends(sg.trends).length,0);
+        return `<div class="sec-item open" id="sec-${sec.id}">
+          <div class="sec-header" onclick="toggleSec('${sec.id}')">
+            <span class="sec-icon">${sec.icon}</span>
+            <div class="sec-info"><div class="sec-title">${sec.title}</div><div class="sec-sub">${sec.subtitle||"Todos los países"}</div></div>
+            <span class="sec-badge">${totalCount} trend${totalCount!==1?"s":""}</span>
+            <span class="sec-chevron">▼</span>
+          </div>
+          <div class="sec-body" style="padding:12px 16px">${subgroupsHtml}</div>
+        </div>`;
+      }
+
+      // Country sections (by-país)
+      if (TF.cat !== "ALL" && TF.cat !== "pais" && TF.cat !== "cultura-pop" && TF.cat !== "tendencia-digital") {
+        // only show country sections if cat=ALL or cat=pais
+      }
+      if (TF.cat === "cultura-pop" || TF.cat === "tendencia-digital") return "";
+
+      const filtered = filterTrends(sec.trends);
+      if (filtered.length === 0) return "";
+      const tbody = filtered.map((t,i) => renderTrendItem(t, i, sec.id)).join("");
+      return `<div class="sec-item open" id="sec-${sec.id}">
+        <div class="sec-header" onclick="toggleSec('${sec.id}')">
+          <span class="sec-icon">${sec.icon}</span>
+          <div class="sec-info"><div class="sec-title">${sec.title}</div>${sec.subtitle?`<div class="sec-sub">${sec.subtitle}</div>`:""}</div>
+          <span class="sec-badge">${filtered.length} trend${filtered.length!==1?"s":""}</span>
+          <span class="sec-chevron">▼</span>
+        </div>
+        <div class="sec-body">${tbody}</div>
+      </div>`;
+    }).filter(Boolean).join("");
+
+    const totalAll = week.sections.reduce((s,sec)=>{
+      if(sec.subgroups) return s+sec.subgroups.reduce((ss,sg)=>ss+sg.trends.length,0);
+      return s+sec.trends.length;
+    },0);
+
+    return `<div class="week-card open" id="week-${week.id}">
+      <div class="week-header" onclick="toggleWeek('${week.id}')">
+        <div>
+          <div class="week-label">${week.label}</div>
+          <div class="week-meta">${totalAll} tendencias · ${fin.length} señal${fin.length!==1?"es":""} financiera${fin.length!==1?"s":""}</div>
+        </div>
+        <div class="week-right"><div style="display:flex;gap:4px">${week.sections.filter(s=>s.id!=="transversal").map(s=>`<span style="font-size:15px">${s.icon}</span>`).join("")}</div><span class="chevron">▼</span></div>
+      </div>
+      <div class="week-body">${finHtml}${secsHtml}</div>
+    </div>`;
+  }).join("");
+}
+renderTrends();
 </script>
 </body>
 </html>
